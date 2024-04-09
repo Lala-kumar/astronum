@@ -4,13 +4,11 @@ import Astrologers from "../astrologers/Astrologers";
 
 const Home = () => {
   return (
-    <>
-      <Layout>
-        <div className="h-full my-10">
-          <Astrologers />
-        </div>
-      </Layout>
-    </>
+    <Layout>
+      <div className="h-full my-10">
+        <Astrologers />
+      </div>
+    </Layout>
   );
 };
 

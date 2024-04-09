@@ -97,7 +97,7 @@ const Astrologers = () => {
           <div className="right-div flex flex-col">
             <button
               type="submit"
-              class="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border-2 rounded-lg px-3  "
+              className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border-2 rounded-lg px-3  "
             >
               Call
             </button>
@@ -197,7 +197,7 @@ const Astrologers = () => {
           <div className="right-div flex flex-col">
             <button
               type="submit"
-              class="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border-2 rounded-lg px-3  "
+              className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border-2 rounded-lg px-3  "
             >
               Call
             </button>
@@ -298,7 +298,7 @@ const Astrologers = () => {
           <div className="flex flex-col">
             <button
               type="submit"
-              class="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border-2 rounded-lg px-3  "
+              className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border-2 rounded-lg px-3  "
             >
               Call
             </button>

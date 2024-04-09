@@ -1,19 +1,30 @@
 import React, { Fragment, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { RxCross2 } from "react-icons/rx";
-import { FaUserCircle } from "react-icons/fa";
 import { Avatar, Popover } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();
+
   const content = (
-    <div className="popover-content m-0 p-0">
-      <p className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer">
+    <div className="">
+      <p
+        onClick={() => navigate("/account")}
+        className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer"
+      >
         My Account
+      </p>
+      <p
+        onClick={() => navigate("/notification")}
+        className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer"
+      >
+        Notification
       </p>
       <p className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer">
         Wallet Transaction
@@ -21,7 +32,10 @@ const Navbar = () => {
       <p className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer">
         Order History
       </p>
-      <p className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer">
+      <p
+        onClick={() => navigate("/login")}
+        className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer"
+      >
         Logout
       </p>
     </div>
@@ -117,19 +131,16 @@ const Navbar = () => {
         </Transition.Root>
 
         {/* for desktop  */}
-        <header className="relative bg-white">
+        <header className="relative bg-gray-100 ">
           {/* <p className="flex h-10 items-center justify-center bg-orange-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
             Free kundali
           </p> */}
 
-          <nav
-            aria-label="Top"
-            className="bg-orange-600 px-4 sm:px-6 lg:px-8 shadow-xl text-white"
-          >
-            <section className="flex h-16 items-center">
+          <nav aria-label="Top" className=" px-4 sm:px-6 lg:px-8 shadow-xl ">
+            <section className="flex h-16 items-center ">
               <button
                 type="button"
-                className="rounded-md bg-orange-600 p-2  lg:hidden"
+                className="rounded-md p-2 lg:hidden bg-gray-50 text-gray-500"
                 onClick={() => setOpen(true)}
               >
                 <span className="sr-only">Open menu</span>
@@ -153,7 +164,7 @@ const Navbar = () => {
               <div className="ml-4 flex lg:ml-0">
                 <Link to={"/"} className="flex">
                   <div className="flex ">
-                    <h1 className=" text-2xl font-bold text-gray-100  px-2 py-1 rounded">
+                    <h1 className=" text-2xl font-bold text-gray-600 px-2 py-1 rounded">
                       LOGO
                     </h1>
                   </div>
@@ -162,19 +173,19 @@ const Navbar = () => {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <Link to={"/"} className="text-sm font-medium text-gray-50 ">
+                  <Link to={"/"} className="text-sm font-medium text-gray-700 ">
                     Talk to Astrologer
                   </Link>
 
-                  <Link to={"/"} className="text-sm font-medium text-gray-50 ">
+                  <Link to={"/"} className="text-sm font-medium  text-gray-700">
                     Book A Pooja
                   </Link>
 
-                  <Link to={"/"} className="text-sm font-medium text-gray-50 ">
+                  <Link to={"/"} className="text-sm font-medium text-gray-700 ">
                     Astromall
                   </Link>
 
-                  <Link to={"/"} className="text-sm font-medium text-gray-50 ">
+                  <Link to={"/login"} className="text-sm font-medium text-gray-700 ">
                     Login
                   </Link>
                 </div>
