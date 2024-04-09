@@ -5,11 +5,28 @@ import { Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { RxCross2 } from "react-icons/rx";
 import { FaUserCircle } from "react-icons/fa";
-import { Avatar, Space } from "antd";
+import { Avatar, Popover } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const content = (
+    <div className="popover-content m-0 p-0">
+      <p className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer">
+        My Account
+      </p>
+      <p className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer">
+        Wallet Transaction
+      </p>
+      <p className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer">
+        Order History
+      </p>
+      <p className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer">
+        Logout
+      </p>
+    </div>
+  );
+  const text = <span>Title</span>;
 
   return (
     <Fragment>
@@ -112,7 +129,7 @@ const Navbar = () => {
             <section className="flex h-16 items-center">
               <button
                 type="button"
-                className="rounded-md bg-orange-600 p-2 text-gray-900 lg:hidden"
+                className="rounded-md bg-orange-600 p-2  lg:hidden"
                 onClick={() => setOpen(true)}
               >
                 <span className="sr-only">Open menu</span>
@@ -136,7 +153,7 @@ const Navbar = () => {
               <div className="ml-4 flex lg:ml-0">
                 <Link to={"/"} className="flex">
                   <div className="flex ">
-                    <h1 className=" text-2xl font-bold text-black  px-2 py-1 rounded">
+                    <h1 className=" text-2xl font-bold text-gray-100  px-2 py-1 rounded">
                       LOGO
                     </h1>
                   </div>
@@ -163,11 +180,13 @@ const Navbar = () => {
                 </div>
 
                 {/* Admin */}
-                <div className="ml-4 flow-root lg:ml-6">
-                  <Avatar
-                    style={{ backgroundColor: "#87d068" }}
-                    icon={<UserOutlined />}
-                  />
+                <div className="ml-4 flow-root lg:ml-6 hover:cursor-pointer">
+                  <Popover placement="topRight" content={content}>
+                    <Avatar
+                      style={{ backgroundColor: "#87d068" }}
+                      icon={<UserOutlined />}
+                    />
+                  </Popover>
                 </div>
               </div>
             </section>
