@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import AstroLogin from "../astrologers/AstroLogin";
 
 const Footer = () => {
   return (
     <footer className="text-gray-50 body-font bg-gray-600">
-      <section className="container px-5 pt-6 pb-6 mx-auto">
-        <div className="flex flex-wrap mx-auto  order-first">
+      <section className="container px-5 pt-6  mx-auto">
+        <div className="flex flex-wrap mx-auto order-first">
           {/* important links */}
 
           <section className="lg:w-1/4 md:w-1/2  sm:w-1/2  px-4">
@@ -13,7 +14,7 @@ const Footer = () => {
             </h2>
             <hr />
 
-            <nav className="list-none mb-10 my-6">
+            <nav className="list-none mb-10 my-4">
               <li className="mb-3">
                 <Link to="/" className="text-gray-50 hover:text-gray-400 ">
                   Planetary Position
@@ -48,9 +49,29 @@ const Footer = () => {
                 </Link>
               </li>
             </nav>
+
+            <h2 className="title-font font-bold tracking-widest text-sm mb-3">
+              ASTROLOGER
+            </h2>
+            <hr />
+
+            <nav className="list-none mb-10 mt-6">
+              <li className="mb-3">
+                <AstroLogin />
+              </li>
+
+              <li className="mb-3">
+                <Link
+                  to="/astrologer-register"
+                  className="text-gray-50 hover:text-gray-400"
+                >
+                  Astrologer Register
+                </Link>
+              </li>
+            </nav>
           </section>
 
-          {/* customer service */}
+          {/* horoscope */}
 
           <section className="lg:w-1/4 md:w-1/2 sm:w-1/2  px-4">
             <h2 className="title-font font-bold tracking-widest text-sm mb-3 uppercase">
@@ -58,7 +79,7 @@ const Footer = () => {
             </h2>
             <hr />
 
-            <nav className="list-none mb-10 my-6">
+            <nav className="list-none mb-10 my-4">
               <li className="mb-3">
                 <Link to="/" className="text-gray-50 hover:text-gray-400">
                   Horoscope 2024
@@ -99,7 +120,7 @@ const Footer = () => {
             </nav>
           </section>
 
-          {/* About */}
+          {/* shubh muhurat */}
 
           <section className="lg:w-1/4 md:w-1/2 sm:w-1/2   px-4">
             <h2 className="title-font font-bold tracking-widest text-sm mb-3">
@@ -107,7 +128,7 @@ const Footer = () => {
             </h2>
             <hr />
 
-            <nav className="list-none mb-10 my-6">
+            <nav className="list-none mb-10 my-4">
               <li className="mb-3">
                 <Link to="/" className="text-gray-50 hover:text-gray-400">
                   Car/Bike Muhurat 2024
@@ -149,7 +170,7 @@ const Footer = () => {
             </h2>
             <hr />
 
-            <nav className="list-none mb-10 my-6">
+            <nav className="list-none mb-10 my-4">
               <li className="mb-3">
                 <Link to="/" className="text-gray-50 hover:text-gray-400">
                   Privacy Policy
@@ -177,7 +198,7 @@ const Footer = () => {
             </h2>
             <hr />
 
-            <nav className="list-none mb-10 my-6">
+            <nav className="list-none mb-10 my-4">
               <li className="mb-3">
                 <Link to="/" className="text-gray-50 hover:text-gray-400">
                   ✉ astronum@gmail.com

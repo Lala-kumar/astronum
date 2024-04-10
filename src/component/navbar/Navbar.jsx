@@ -16,25 +16,31 @@ const Navbar = () => {
     <div className="">
       <p
         onClick={() => navigate("/account")}
-        className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer"
+        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
       >
         My Account
       </p>
       <p
         onClick={() => navigate("/notification")}
-        className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer"
+        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
       >
         Notification
       </p>
-      <p className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer">
+      <p
+        onClick={() => navigate("/notification")}
+        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+      >
         Wallet Transaction
       </p>
-      <p className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer">
+      <p
+        onClick={() => navigate("/notification")}
+        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+      >
         Order History
       </p>
       <p
         onClick={() => navigate("/login")}
-        className="font-bold hover:text-gray-500 mb-2 hover:cursor-pointer"
+        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
       >
         Logout
       </p>
@@ -117,7 +123,7 @@ const Navbar = () => {
 
                     <div className="flow-root">
                       <Link
-                        to={"/"}
+                        to={"/login"}
                         className="-m-2 block p-2 font-medium text-gray-900 "
                       >
                         Login
@@ -185,7 +191,10 @@ const Navbar = () => {
                     Astromall
                   </Link>
 
-                  <Link to={"/login"} className="text-sm font-medium text-gray-700 ">
+                  <Link
+                    to={"/login"}
+                    className="text-sm font-medium text-gray-700 "
+                  >
                     Login
                   </Link>
                 </div>

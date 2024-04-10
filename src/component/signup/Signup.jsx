@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function SignUp() {
   return (
     <Layout>
-      <main className="h-full pt-20 pb-20 mx-auto px-10 flex flex-col md:px-28 bg-gray-100">
+      <main className="h-full pt-16 pb-20 mx-auto px-10 flex flex-col md:px-28 bg-gray-100">
         <div
           className={`flex justify-evenly w-full items-center flex-col lg:flex-row-reverse basis-full`}
         >
@@ -19,47 +19,63 @@ export default function SignUp() {
               <label htmlFor="email" className="block mb-4">
                 <input
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                  required
                   id="name"
                   name="name"
                   type="name"
-                  placeholder="Name"
+                  placeholder="Enter your full name"
                 />
               </label>
               <label htmlFor="number" className="block mb-4">
                 <input
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                  required
                   id="number"
                   name="number"
                   type="text"
-                  placeholder="Contact No."
+                  placeholder="Enter your mobile number"
                 />
               </label>
               <label htmlFor="address" className="block mb-4">
                 <input
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                  required
                   id="address"
                   name="address"
                   type="address"
-                  placeholder="Address"
+                  placeholder="Enter your address"
                 />
               </label>
               <label htmlFor="email" className="block mb-4">
                 <input
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                  required
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="Email "
+                  placeholder="Enter your email "
                 />
               </label>
 
               <label htmlFor="password" className="block mb-4">
                 <input
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                  required
                   id="password"
                   name="password"
                   type="password"
-                  placeholder="Password"
+                  placeholder="Create a strong password"
+                />
+              </label>
+
+              <label htmlFor="password1" className="block mb-4">
+                <input
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                  required
+                  id="password1"
+                  name="password1"
+                  type="password"
+                  placeholder="Confirm Passowrd"
                 />
               </label>
 
@@ -77,7 +93,7 @@ export default function SignUp() {
                     to={"/login"}
                     className="text-pink-500 hover:text-pink-600 transition duration-200 ease-in-out"
                   >
-                    <span>Log In</span>
+                    <span>Log-In</span>
                   </Link>
                 </p>
               </div>

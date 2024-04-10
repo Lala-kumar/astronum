@@ -1,7 +1,10 @@
 import React from "react";
 import logo from "../../assets/astro.jpg";
+import { useNavigate } from "react-router";
 
 const Astrologers = () => {
+  const navigate = useNavigate();
+
   return (
     <main className="">
       <div className="mx-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -83,9 +86,11 @@ const Astrologers = () => {
           </div>
 
           <div className="m-1 w-full ">
-            <p className="mb-1">Moolchand</p>
+            <p className="mb-1 cursor-pointer" onClick={()=> navigate("/astrologer/1")}>Moolchand</p>
             <p className=" mb-1 text-xs text-gray-500">Vedic</p>
-            <p className=" mb-1 text-gray-600 text-ellipsis overflow-hidden">Hindi, English</p>
+            <p className=" mb-1 text-gray-600 text-ellipsis overflow-hidden">
+              Hindi, English
+            </p>
             <p className="text-gray-600 mb-1">Exp: 1 Year</p>
             <p className="text-xs">
               {" "}
