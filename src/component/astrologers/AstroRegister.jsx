@@ -191,7 +191,7 @@ const AstroLogin = () => {
   return (
     <main className="bg-slate-100">
       <Layout>
-        <div className="h-screen mx-4">
+        <div className="h-full mx-4">
           <h1 className="font-bold text-xl text-center my-6">
             Astrologer Register
           </h1>
