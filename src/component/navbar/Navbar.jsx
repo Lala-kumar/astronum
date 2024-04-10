@@ -6,6 +6,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { RxCross2 } from "react-icons/rx";
 import { Avatar, Popover } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import logo from "../../assets/astronum-logo.png";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -171,8 +172,18 @@ const Navbar = () => {
                 <Link to={"/"} className="flex">
                   <div className="flex ">
                     <h1 className=" text-2xl font-bold text-gray-600 px-2 py-1 rounded">
-                      LOGO
+                      <img
+                        src={logo}
+                        alt="Astronum"
+                        className="rounded-full h-12 w-12"
+                      />
                     </h1>
+                    <div>
+                      <p className="font-bold text-xl">Astronum</p>
+                      <p className="text-xs text-pink-500">
+                        Astrologers For Better Life
+                      </p>
+                    </div>
                   </div>
                 </Link>
               </div>
