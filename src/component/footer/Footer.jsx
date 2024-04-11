@@ -3,7 +3,7 @@ import AstroLogin from "../astrologers/AstroLogin";
 
 const Footer = () => {
   return (
-    <footer className="text-gray-50 body-font bg-gray-600">
+    <footer className="text-gray-50 body-font bg-zinc-600">
       <section className="container px-5 pt-6  mx-auto">
         <div className="flex flex-wrap mx-auto order-first">
           {/* important links */}

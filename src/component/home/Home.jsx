@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div>
       <Layout>
-        <div className="h-full my-10">
+        <div className="min-h-screen my-10">
           <Astrologers />
         </div>
       </Layout>

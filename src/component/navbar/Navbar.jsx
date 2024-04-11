@@ -14,7 +14,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const content = (
-    <div className="">
+    <div >
       <p
         onClick={() => navigate("/account")}
         className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
@@ -47,7 +47,7 @@ const Navbar = () => {
       </p>
     </div>
   );
-  const text = <span>Title</span>;
+  
 
   return (
     <Fragment>
@@ -214,7 +214,6 @@ const Navbar = () => {
                 <div className="ml-4 flow-root lg:ml-6 hover:cursor-pointer">
                   <Popover placement="topRight" content={content}>
                     <Avatar
-                      style={{ backgroundColor: "#87d068" }}
                       icon={<UserOutlined />}
                     />
                   </Popover>
