@@ -2,13 +2,14 @@ import React from "react";
 import Layout from "../layout/Layout";
 import logo from "../../assets/astro.jpg";
 import { FaStar } from "react-icons/fa6";
+import AstroAvailable from "./AstroAvailable";
 
 const AstroDetails = () => {
   return (
     <div className="">
       <Layout>
         <div className="h-full">
-          <main className="mb-6">
+          <main className="mb-6 px-5">
             <div className="">
               <section className="w-full mx-auto flex lg:flex-row md:flex-row flex-col sm:flex-col  m-4 bg-white">
                 <div className="m-1 mx-10">
@@ -26,52 +27,65 @@ const AstroDetails = () => {
                   </p>
                   <p className=" mb-2 text-gray-600">Hindi, English</p>
                   <p className="text-gray-600 mb-2">Exp: 1 Year</p>
-                  <p className="text-md mb-2">
+                  {/* <p className="text-md mb-2">
                     <span className="text-rose-600 font-bold">FREE</span>{" "}
                     <span className="line-through">10/min</span>
-                  </p>
+                  </p> */}
 
-                  <div className="flex text-yellow-500 mb-2">
-                    <p className="mr-2 text-gray-700 text-center ">Rating: </p>
+                  <div className="flex mb-2 text-gray-700">
+                    <p className="mr-2  text-center ">Rating : </p>
                     <span>
-                      <FaStar className="mt-1" />
+                      <FaStar className="mt-1 text-yellow-500 " />
                     </span>
                     <span>
-                      <FaStar className="mt-1" />
+                      <FaStar className="mt-1 text-yellow-500 " />
                     </span>
                     <span>
-                      <FaStar className="mt-1" />
+                      <FaStar className="mt-1 text-yellow-500 " />
                     </span>
                     <span>
-                      <FaStar className="mt-1" />
+                      <FaStar className="mt-1 text-yellow-500 " />
                     </span>
                     <span>
-                      <FaStar className="mt-1" />
+                      <FaStar className="mt-1 text-yellow-500 " />
                     </span>
+                    <p></p>
+                    <p className="mx-4">|</p>
+                    <p>Reviews : 275</p>
                   </div>
                 </div>
 
-                <section className="m-auto mb-8">
-                  <div className="hover:cursor-pointer hover:bg-orange-400 hover:text-white flex border-2 border-orange-400 my-auto w-64 h-12 items-center justify-center rounded-full ">
-                    <section className="">
-                      <p className="font-bold text-sm opacity-80 ">Call</p>
-                      <p className="font-bold text-sm opacity-80">Busy</p>
-                    </section>
-                    <div className="mx-4 opacity-90">|</div>
-
-                    <section className="">
-                      <p className="text-xs line-through ">10/min</p>
-                      <p className="font-bold text-md  opacity-80 text-rose-600 ">
-                        Free
+                <div className="flex flex-col mx-10">
+                  <section className="m-auto mb-8">
+                    <div className="hover:cursor-pointer hover:bg-green-400 hover:text-white flex border-2 border-green-400 my-auto w-64 h-12 items-center justify-center rounded-full ">
+                      <p className="font-semibold opacity-85 hover:text-white">
+                        ACTIVE
                       </p>
-                    </section>
-                  </div>
-                </section>
+                    </div>
+                  </section>
+
+                  <section className="m-auto mb-8">
+                    <div className="hover:cursor-pointer hover:bg-green-400 hover:text-white flex border-2 border-green-400 my-auto w-64 h-12 items-center justify-center rounded-full ">
+                      <section className="">
+                        <p className="font-bold text-sm opacity-80 ">Call</p>
+                        <p className="font-bold text-sm opacity-80">Busy</p>
+                      </section>
+                      <div className="mx-4 opacity-90">|</div>
+
+                      <section className="">
+                        <p className="text-xs line-through ">10/min</p>
+                        <p className="font-bold text-md  opacity-80 text-rose-600 ">
+                          Free
+                        </p>
+                      </section>
+                    </div>
+                  </section>
+                </div>
               </section>
 
               <div className="my-6">
                 <h1 className="mx-6 mb-6 font-bold text-xl">Specialization</h1>
-                <div className="mx-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <div className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                   <p className="text-center rounded-full py-2 bg-pink-200">
                     {" "}
                     Career & Job
@@ -114,6 +128,8 @@ const AstroDetails = () => {
                   </p>
                 </div>
               </div>
+
+              <AstroAvailable />
 
               <div className="my-6">
                 <h1 className="mx-6 mb-6 font-bold text-xl">About Me</h1>
