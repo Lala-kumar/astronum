@@ -18,7 +18,7 @@ const Notification = () => {
                 title: (
                   <HomeOutlined
                     onClick={() => navigate("/")}
-                    style={{ color: "white" }}
+                    style={{ color: "white", fontSize: "20px" }}
                   />
                 ),
               },

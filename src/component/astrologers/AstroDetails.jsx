@@ -23,7 +23,7 @@ const AstroDetails = () => {
                 title: (
                   <HomeOutlined
                     onClick={() => navigate("/")}
-                    style={{ color: "white" }}
+                    style={{ color: "white" , fontSize: "20px"}}
                   />
                 ),
               },
@@ -105,8 +105,8 @@ const AstroDetails = () => {
             </section>
 
             <div className="my-6">
-              <h1 className="mx-6 mb-6 font-bold text-xl">Specialization</h1>
-              <div className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              <h1 className="mx-1 mb-6 font-bold text-xl">Specialization</h1>
+              <div className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                 <p className="text-center rounded-full py-2 bg-pink-200">
                   {" "}
                   Career & Job
@@ -153,8 +153,8 @@ const AstroDetails = () => {
             <AstroAvailable />
 
             <div className="my-6">
-              <h1 className="mx-6 mb-6 font-bold text-xl">About Me</h1>
-              <h4 className="mx-6 text-justify">
+              <h1 className=" mb-6 font-bold text-xl">About Me</h1>
+              <h4 className=" text-justify">
                 I have always been passionate about Astrology, Numerology, and
                 Tarot. I've been learning & exploring these mystical arts since
                 my teenage years. In 2004, a special connection blossomed with

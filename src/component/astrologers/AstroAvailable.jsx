@@ -7,6 +7,20 @@ const App = () => {
   const getNextDays = () => {
     const today = new Date();
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
 
     const nextDays = [];
 
@@ -29,7 +43,8 @@ const App = () => {
       nextDate.setDate(today.getDate() + i);
       const dayOfWeek = days[nextDate.getDay()];
       const dayOfMonth = nextDate.getDate();
-      nextDays.push(`${dayOfWeek}, ${dayOfMonth}`);
+      const monthName = months[nextDate.getMonth()];
+      nextDays.push(`${dayOfWeek}, ${monthName} ${dayOfMonth}`);
     }
     return nextDays;
   };

@@ -48,6 +48,11 @@ const Footer = () => {
                   Numerology
                 </Link>
               </li>
+              <li className="mb-3">
+                <Link to="/notification" className="text-gray-50 hover:text-gray-400">
+                  Notification
+                </Link>
+              </li>
             </nav>
 
             <h2 className="title-font font-bold tracking-widest text-sm mb-3">
