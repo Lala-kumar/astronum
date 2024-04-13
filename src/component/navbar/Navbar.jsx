@@ -28,13 +28,13 @@ const Navbar = () => {
         Notification
       </p>
       <p
-        onClick={() => navigate("/notification")}
+        onClick={() => navigate("/")}
         className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
       >
         Wallet Transaction
       </p>
       <p
-        onClick={() => navigate("/notification")}
+        onClick={() => navigate("/")}
         className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
       >
         Order History
