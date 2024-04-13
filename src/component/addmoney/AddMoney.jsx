@@ -40,7 +40,7 @@ const MyAccount = () => {
           />
         </h1>
 
-        <main className="min-h-screen mx-4 sm:mx-6 md:mx-12 lg:mx-20">
+        <main className="min-h-screen mb-6 mx-4 sm:mx-6 md:mx-12 lg:mx-20">
           <section>
             <h1 className="text-2xl text-center opacity-85 font-bold my-4">
               Add Money to Wallet

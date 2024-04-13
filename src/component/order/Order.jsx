@@ -3,6 +3,7 @@ import { Breadcrumb } from "antd";
 import React from "react";
 import Layout from "../layout/Layout";
 import { useNavigate } from "react-router";
+import { Button, Empty } from "antd";
 
 const MyAccount = () => {
   const navigate = useNavigate();
@@ -30,12 +31,12 @@ const MyAccount = () => {
           />
         </h1>
 
-        <main className="min-h-screen mx-4 sm:mx-6 md:mx-12 lg:mx-20">
-          <section className="mt-6 items-center">
-            <h1 className="text-center font-semibold">
-              There are no orders yet!
-            </h1>
-          </section>
+        <main className="min-h-screen ">
+          <div className="mt-20">
+            <Empty description={<span>No orders yet!</span>}>
+              <Button type="primary" onClick={()=> navigate("/pooja")}>Order Now</Button>
+            </Empty>
+          </div>
         </main>
       </Layout>
     </>
