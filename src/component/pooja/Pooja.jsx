@@ -17,26 +17,26 @@ const Pooja = () => {
       <Layout>
         {/* BreadCrumbs */}
 
-        <h1 className="font-bold mx-auto text-center p-2 text-white bg-pink-700">
-          <Breadcrumb
-            className="text-gray-50 "
-            separator={<span style={{ color: "white" }}>&gt;</span>}
-            items={[
-              {
-                title: (
-                  <HomeOutlined
-                    onClick={() => navigate("/")}
-                    style={{ color: "white", fontSize: "20px" }}
-                  />
-                ),
-              },
+        <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20  text-center p-2 text-white bg-pink-700">
+        <Breadcrumb
+          className="text-gray-50 "
+          separator={<span style={{ color: "white" }}>&gt;</span>}
+          items={[
+            {
+              title: (
+                <HomeOutlined
+                  onClick={() => navigate("/")}
+                  style={{ color: "white", fontSize: "20px" }}
+                />
+              ),
+            },
 
-              {
-                title: <span className="text-white">Book A Pooja</span>,
-              },
-            ]}
-          />
-        </h1>
+            {
+              title: <span className="text-white">Book A Pooja</span>
+            },
+          ]}
+        />
+      </h1>
 
         <h1 className="font-bold bg-pink-100 mb-6 flex flex-col text-center p-2 mx-auto rounded-md items-center justify-center ">
           <p className="text-xl"> MOST BOOKED PUJAS</p>

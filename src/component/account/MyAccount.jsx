@@ -30,7 +30,7 @@ const MyAccount = () => {
           />
         </h1>
 
-        <div className="min-h-screen  mx-4 sm:mx-6 md:mx-12 lg:mx-20">
+        <div className="min-h-screen mx-4 sm:mx-6 md:mx-12 lg:mx-20">
           <h1 className="font-bold text-xl mt-4">Profile</h1>
           <h1 className="text-sm text-gray-500">
             Control your profile setup and itegrations

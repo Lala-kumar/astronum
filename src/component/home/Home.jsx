@@ -18,7 +18,7 @@ const Home = () => {
         <div className="min-h-screen">
           {/* BreadCrumbs */}
 
-          <h1 className="font-bold mb-6 mx-auto text-center p-2 text-white bg-pink-700">
+          <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20  text-center p-2 text-white bg-pink-700 mb-5">
             <Breadcrumb
               className="text-gray-50 "
               separator={<span style={{ color: "white" }}>&gt;</span>}

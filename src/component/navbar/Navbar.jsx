@@ -14,7 +14,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const content = (
-    <div >
+    <div>
       <p
         onClick={() => navigate("/account")}
         className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
@@ -28,16 +28,16 @@ const Navbar = () => {
         Notification
       </p>
       <p
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/my-wallet")}
         className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
       >
-        Wallet Transaction
+        My Wallet & Transaction
       </p>
       <p
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/order")}
         className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
       >
-        Order History
+        Orders
       </p>
       <p
         onClick={() => navigate("/login")}
@@ -47,7 +47,6 @@ const Navbar = () => {
       </p>
     </div>
   );
-  
 
   return (
     <Fragment>
@@ -110,15 +109,6 @@ const Navbar = () => {
                         className="-m-2 block p-2 font-medium text-gray-900"
                       >
                         Book A Pooja
-                      </Link>
-                    </div>
-
-                    <div className="flow-root">
-                      <Link
-                        to={"/"}
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                      >
-                        Astromall
                       </Link>
                     </div>
 
@@ -194,12 +184,11 @@ const Navbar = () => {
                     Talk to Astrologer
                   </Link>
 
-                  <Link to={"/pooja"} className="text-sm font-medium  text-gray-700">
+                  <Link
+                    to={"/pooja"}
+                    className="text-sm font-medium  text-gray-700"
+                  >
                     Book A Pooja
-                  </Link>
-
-                  <Link to={"/"} className="text-sm font-medium text-gray-700 ">
-                    Astromall
                   </Link>
 
                   <Link
@@ -213,9 +202,7 @@ const Navbar = () => {
                 {/* Admin */}
                 <div className="ml-4 flow-root lg:ml-6 hover:cursor-pointer">
                   <Popover placement="topRight" content={content}>
-                    <Avatar
-                      icon={<UserOutlined />}
-                    />
+                    <Avatar icon={<UserOutlined />} />
                   </Popover>
                 </div>
               </div>

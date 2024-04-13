@@ -8,29 +8,29 @@ const Notification = () => {
   const navigate = useNavigate();
   return (
     <Layout>
-      <div className="min-h-screen ">
-        <h1 className="font-bold mb-6 mx-auto text-center p-2 text-white bg-pink-700">
-          <Breadcrumb
-            className="text-gray-50 "
-            separator={<span style={{ color: "white" }}>&gt;</span>}
-            items={[
-              {
-                title: (
-                  <HomeOutlined
-                    onClick={() => navigate("/")}
-                    style={{ color: "white", fontSize: "20px" }}
-                  />
-                ),
-              },
+      <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20  text-center p-2 text-white bg-pink-700">
+        <Breadcrumb
+          className="text-gray-50 "
+          separator={<span style={{ color: "white" }}>&gt;</span>}
+          items={[
+            {
+              title: (
+                <HomeOutlined
+                  onClick={() => navigate("/")}
+                  style={{ color: "white", fontSize: "20px" }}
+                />
+              ),
+            },
 
-              {
-                title: <span className="text-white">Notifications</span>,
-              },
-            ]}
-          />
-        </h1>
+            {
+              title: <span className="text-white">Notifications</span>
+            },
+          ]}
+        />
+      </h1>
 
-        <h1 className="font-bold mb-6 text-center p-2 mx-auto w-72 rounded-md bg-pink-100">
+      <div className="min-h-screen">
+        <h1 className="font-bold my-6 text-center p-2 mx-auto w-72 rounded-md bg-pink-100">
           Notifications
         </h1>
 

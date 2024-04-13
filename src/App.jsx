@@ -10,6 +10,9 @@ import AstroLogin from "./component/astrologers/AstroLogin";
 import AstroRegister from "./component/astrologers/AstroRegister";
 import AstroDetails from "./component/astrologers/AstroDetails";
 import Pooja from "./component/pooja/Pooja";
+import MyWallet from "./component/wallet/MyWallet";
+import AddMoney from "./component/addmoney/AddMoney";
+import Order from './component/order/Order'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -23,6 +26,9 @@ const App = () => {
     { path: "/astrologer-register", element: <AstroRegister /> },
     { path: "/astrologer/1", element: <AstroDetails /> },
     { path: "/pooja", element: <Pooja /> },
+    { path: "/my-wallet", element: <MyWallet /> },
+    { path: "/my-wallet/add-money", element: <AddMoney /> },
+    { path: "/order", element: <Order /> },
   ]);
 
   return (
