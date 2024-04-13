@@ -86,7 +86,7 @@ const Astrologers = () => {
           </div>
 
           <div className="m-1 w-full ">
-            <p className="mb-1 cursor-pointer" onClick={()=> navigate("/astrologer/1")}>Moolchand</p>
+            <p className="mb-1 cursor-pointer hover:text-gray-500" onClick={()=> navigate("/astrologer/1")}>Moolchand</p>
             <p className=" mb-1 text-xs text-gray-500">Vedic</p>
             <p className=" mb-1 text-gray-600 text-ellipsis overflow-hidden">
               Hindi, English
@@ -188,7 +188,7 @@ const Astrologers = () => {
           </div>
 
           <div className="m-1 w-full ">
-            <p className="mb-1">Moolchand</p>
+            <p className="mb-1 cursor-pointer hover:text-gray-500" onClick={()=> navigate("/astrologer/1")}>Moolchand</p>
             <p className=" mb-1 text-xs text-gray-500">Vedic</p>
             <p className=" mb-1 text-gray-600">Hindi, English</p>
             <p className="text-gray-600 mb-1">Exp: 1 Year</p>
@@ -289,7 +289,7 @@ const Astrologers = () => {
           </div>
 
           <div className="m-1 w-full ">
-            <p className="mb-1">Moolchand</p>
+            <p className="mb-1 cursor-pointer hover:text-gray-500" onClick={()=> navigate("/astrologer/1")}>Moolchand</p>
             <p className=" mb-1 text-xs text-gray-500">Vedic</p>
             <p className=" mb-1 text-gray-600">Hindi, English</p>
             <p className="text-gray-600 mb-1">Exp: 1 Year</p>

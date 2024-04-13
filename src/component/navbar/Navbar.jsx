@@ -106,7 +106,7 @@ const Navbar = () => {
 
                     <div className="flow-root">
                       <Link
-                        to={"/"}
+                        to={"/pooja"}
                         className="-m-2 block p-2 font-medium text-gray-900"
                       >
                         Book A Pooja
@@ -194,7 +194,7 @@ const Navbar = () => {
                     Talk to Astrologer
                   </Link>
 
-                  <Link to={"/"} className="text-sm font-medium  text-gray-700">
+                  <Link to={"/pooja"} className="text-sm font-medium  text-gray-700">
                     Book A Pooja
                   </Link>
 

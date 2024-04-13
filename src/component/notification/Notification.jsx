@@ -37,7 +37,7 @@ const Notification = () => {
         <div className="container mx-auto max-w-2xl">
           <ul className="w-full container mx-auto">
             <li
-              style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)" }}
+              style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)" }}
               className="mx-2 mb-4 border rounded-xl h-auto cursor-pointer"
             >
               <div className="w-full">
