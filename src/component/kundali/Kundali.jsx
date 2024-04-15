@@ -3,10 +3,26 @@ import { Breadcrumb } from "antd";
 import React, { useState } from "react";
 import Layout from "../layout/Layout";
 import { useNavigate } from "react-router";
-import kundalilogo from "../../assets/kundalilogo.svg";
 import kundali from "../../assets/kundali.jpg";
 
-const Notification = () => {
+const initialData = {
+  name: "",
+  gender: "",
+  dateOfBirth: {
+    day: "",
+    month: "",
+    year: "",
+  },
+  timeOfBirth: {
+    hours: "",
+    minutes: "",
+    seconds: "",
+  },
+  placeOfBirth: "",
+  notIncludeTime: false,
+};
+
+const Kundali = () => {
   const navigate = useNavigate();
 
   // Generate options for date (1-31)
@@ -47,20 +63,11 @@ const Notification = () => {
     )
   );
 
-  const [formData, setFormData] = useState({
-    name: "",
-    gender: "",
-    dateOfBirth: {
-      day: "",
-      month: "",
-      year: "",
-    },
-    timeOfBirth: "",
-    placeOfBirth: "",
-  });
+  const [formData, setFormData] = useState(initialData);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+    // console.log(name, value, type, checked);
     if (name === "day" || name === "month" || name === "year") {
       setFormData({
         ...formData,
@@ -69,10 +76,30 @@ const Notification = () => {
           [name]: value,
         },
       });
-    } else {
+    } else if (name === "notIncludeTime") {
+      setFormData({
+        ...formData,
+        notIncludeTime: checked,
+        timeOfBirth: checked
+          ? { hours: "", minutes: "", seconds: "" }
+          : formData.timeOfBirth,
+      });
+    } else if (
+      name === "name" ||
+      name === "gender" ||
+      name === "placeOfBirth"
+    ) {
       setFormData({
         ...formData,
         [name]: value,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        timeOfBirth: {
+          ...formData.timeOfBirth,
+          [name]: value,
+        },
       });
     }
   };
@@ -81,6 +108,7 @@ const Notification = () => {
     e.preventDefault();
     // Add your logic to generate Kundali using formData
     console.log(formData);
+    setFormData(initialData);
   };
 
   return (
@@ -109,33 +137,34 @@ const Notification = () => {
 
         <div className="min-h-screen mx-4 sm:mx-6 md:mx-12 lg:mx-20">
           <div className="container mx-auto py-8 ">
-            <section className="p-2 flex flex-col items-center">
-              <div>
-                <p className=" text-justify content-top">
-                  <span className="inline-flex">
-                    <img
-                      src={kundali}
-                      alt="Kundali"
-                      className="inline border-4 mr-1 self-center border-gray-950 h-10 w-10"
-                    />
-                  </span>
-                  Kundli is the term used for Birth Chart in Vedic Astrology.
-                  Twelve houses of Kundli show ascendant and planet position in
-                  various zodiac signs at the time of birth as seen from the
-                  place of birth. Twelve houses of Kundli show ascendant and
-                  planet position in various zodiac signs at the time of birth
-                  as seen from the place of birth.
-                </p>
-              </div>
+            <p className="text-center mb-6 font-semibold text-2xl">
+              Generate your Kundli
+            </p>
+
+            <section className="flex flex-col md:flex-row lg:flex-row mb-6 justify-center items-center">
+              <img
+                src={kundali}
+                alt="Kundali"
+                className="rounded-full h-24 w-24 mr-2"
+              />
+
+              <p className=" text-justify content-top">
+                Kundli is the term used for Birth Chart in Vedic Astrology.
+                Twelve houses of Kundli show ascendant and planet position in
+                various zodiac signs at the time of birth as seen from the place
+                of birth. Twelve houses of Kundli show ascendant and planet
+                position in various zodiac signs at the time of birth as seen
+                from the place of birth.
+              </p>
             </section>
 
             <form
               onSubmit={handleSubmit}
-              className="max-w-lg mx-auto p-3 shadow-2xl bg-white"
+              className="max-w-lg mx-auto p-3 shadow-2xl bg-white rounded-xl"
             >
               <div className="mb-4">
                 <label htmlFor="name" className="block mb-1">
-                  Name
+                  Name<span className="text-red-600">*</span>
                 </label>
                 <input
                   type="text"
@@ -150,7 +179,7 @@ const Notification = () => {
               </div>
               <div className="mb-4">
                 <label htmlFor="gender" className="block mb-1">
-                  Gender
+                  Gender<span className="text-red-600">*</span>
                 </label>
                 <select
                   id="gender"
@@ -168,7 +197,9 @@ const Notification = () => {
               </div>
 
               <div className="mb-4">
-                <label className="block mb-1">Date of Birth</label>
+                <label className="block mb-1">
+                  Date of Birth<span className="text-red-600">*</span>
+                </label>
                 <div className="flex">
                   <select
                     id="day"
@@ -207,22 +238,67 @@ const Notification = () => {
               </div>
 
               <div className="mb-4">
-                <label htmlFor="timeOfBirth" className="block mb-1">
-                  Time of Birth
+                <label className="mb-1 flex justify-between items-center content-center">
+                  <span>Time of Birth</span>
+                  <span>
+                    <input
+                      type="checkbox"
+                      id="notIncludeTime"
+                      name="notIncludeTime"
+                      checked={formData.notIncludeTime}
+                      onChange={handleChange}
+                      className=""
+                    />
+                    <span className="text-xs"> Don't Know Birth Time </span>
+                  </span>
                 </label>
-                <input
-                  type="time"
-                  id="timeOfBirth"
-                  name="timeOfBirth"
-                  value={formData.timeOfBirth}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                  required
-                />
+
+                <div className="flex">
+                  <input
+                    type="number"
+                    id="hours"
+                    name="hours"
+                    value={formData.timeOfBirth.hours}
+                    onChange={handleChange}
+                    placeholder="Hours"
+                    disabled={formData.notIncludeTime}
+                    required
+                    min="0"
+                    max="23"
+                    className="w-1/3 px-4 py-2 border rounded-l-md focus:outline-none focus:border-blue-500"
+                  />
+                  <input
+                    type="number"
+                    id="minutes"
+                    name="minutes"
+                    value={formData.timeOfBirth.minutes}
+                    onChange={handleChange}
+                    placeholder="Minutes"
+                    disabled={formData.notIncludeTime}
+                    required
+                    min="0"
+                    max="59"
+                    className="w-1/3 px-4 py-2 border focus:outline-none focus:border-blue-500"
+                  />
+                  <input
+                    type="number"
+                    id="seconds"
+                    name="seconds"
+                    value={formData.timeOfBirth.seconds}
+                    onChange={handleChange}
+                    placeholder="Seconds"
+                    disabled={formData.notIncludeTime}
+                    required
+                    min="0"
+                    max="59"
+                    className="w-1/3 px-4 py-2 border rounded-r-md focus:outline-none focus:border-blue-500"
+                  />
+                </div>
               </div>
+
               <div className="mb-4">
                 <label htmlFor="placeOfBirth" className="block mb-1">
-                  Place of Birth
+                  Place of Birth<span className="text-red-600">*</span>
                 </label>
                 <input
                   type="text"
@@ -231,8 +307,8 @@ const Notification = () => {
                   value={formData.placeOfBirth}
                   onChange={handleChange}
                   placeholder="City, State, Country"
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                   required
+                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                 />
               </div>
               <button
@@ -249,4 +325,4 @@ const Notification = () => {
   );
 };
 
-export default Notification;
+export default Kundali;
