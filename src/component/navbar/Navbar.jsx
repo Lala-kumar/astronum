@@ -114,6 +114,15 @@ const Navbar = () => {
 
                     <div className="flow-root">
                       <Link
+                        to={"/kundali"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        Kundali
+                      </Link>
+                    </div>
+
+                    <div className="flow-root">
+                      <Link
                         to={"/login"}
                         className="-m-2 block p-2 font-medium text-gray-900 "
                       >
@@ -189,6 +198,13 @@ const Navbar = () => {
                     className="text-sm font-medium  text-gray-700"
                   >
                     Book A Pooja
+                  </Link>
+
+                  <Link
+                    to={"/kundali"}
+                    className="text-sm font-medium  text-gray-700"
+                  >
+                    Kundali
                   </Link>
 
                   <Link
