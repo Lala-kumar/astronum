@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -50,7 +50,7 @@ const Navbar = () => {
 
   return (
     <Fragment>
-      <div className="bg-white sticky top-0 z-50  ">
+      <div className="bg-white sticky top-0 z-50">
         {/* for Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
           <Dialog
@@ -117,7 +117,16 @@ const Navbar = () => {
                         to={"/kundali"}
                         className="-m-2 block p-2 font-medium text-gray-900"
                       >
-                        Kundali
+                        Free Kundali
+                      </Link>
+                    </div>
+
+                    <div className="flow-root">
+                      <Link
+                        to={"/match-kundali"}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        Kundali Matching
                       </Link>
                     </div>
 
@@ -204,7 +213,14 @@ const Navbar = () => {
                     to={"/kundali"}
                     className="text-sm font-medium  text-gray-700"
                   >
-                    Kundali
+                    Free Kundali
+                  </Link>
+
+                  <Link
+                    to={"/match-kundali"}
+                    className="text-sm font-medium  text-gray-700"
+                  >
+                    Kundali Matching
                   </Link>
 
                   <Link

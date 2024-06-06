@@ -15,6 +15,7 @@ const Login = () => {
               <img alt="login-img" src={loginSvg} />
             </div>
           </div>
+          
           <div className="w-full sm:max-w-sm mx-5">
             <form className="max-w-md mx-auto">
               <label htmlFor="email" className="block mb-4">

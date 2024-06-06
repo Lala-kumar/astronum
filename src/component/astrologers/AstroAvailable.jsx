@@ -44,6 +44,7 @@ const App = () => {
       const dayOfWeek = days[nextDate.getDay()];
       const dayOfMonth = nextDate.getDate();
       const monthName = months[nextDate.getMonth()];
+      // nextDays.push(`${dayOfWeek}, ${monthName} ${dayOfMonth}`);
       nextDays.push(`${dayOfWeek}, ${monthName} ${dayOfMonth}`);
     }
     return nextDays;
@@ -53,18 +54,18 @@ const App = () => {
   const isHorizontal = window.innerWidth >= 1024;
 
   return (
-    <div className="my-8 py-8 rounded-md w-full mx-auto">
+    <div className="my-8 py-8 rounded-md w-full mx-auto box-border">
       <h1 className="mb-6 text-xl font-bold">Check Online Availability</h1>
-      <section className="mx-auto border border-pink-300 rounded-md p-4 py-12">
+      <section className="mx-auto border border-pink-300 rounded-md p-4 py-12 box-border">
         <Steps
           direction={isHorizontal ? "horizontal" : "vertical"}
           progressDot
-          className="content-center mx-auto"
+          className="content-center mx-auto box-border"
           current={7}
           items={nextDays.map((day, index) => ({
-            title: <p>{day}</p>,
+            title: <p className="text-xs">{day}</p>,
             description: (
-              <p className="max-w-64  bg-white">
+              <p className="max-w-64 text-xs bg-white">
                 {index % 2 === 0 ? (
                   <p className="text-center rounded-full py-1 mx-2 border text-green-500 border-green-500">
                     Available

@@ -14,7 +14,8 @@ const AstroDetails = () => {
   return (
     <Layout>
       <div className="h-full">
-        <h1 className="font-bold mb-6 mx-auto text-center p-2 text-white bg-pink-700">
+        
+        <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20  text-center p-2 text-white bg-pink-700 mb-5">
           <Breadcrumb
             className="text-gray-50 "
             separator={<span style={{ color: "white" }}>&gt;</span>}
@@ -23,18 +24,18 @@ const AstroDetails = () => {
                 title: (
                   <HomeOutlined
                     onClick={() => navigate("/")}
-                    style={{ color: "white" , fontSize: "20px"}}
+                    style={{ color: "white", fontSize: "20px" }}
                   />
                 ),
               },
-
               {
                 title: <span className="text-white">Moolchand</span>,
               },
             ]}
           />
         </h1>
-        <main className="mb-6 px-5">
+       
+        <main className="mb-6 px-2 md:px-12 lg:px-20">
           <div className="">
             <section className="w-full border border-pink-300 rounded-md mx-auto flex lg:flex-row md:flex-row flex-col sm:flex-col  m-4 bg-purple-50">
               <div className="m-1 mx-10">

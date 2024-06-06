@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/astro.jpg";
 import { useNavigate } from "react-router";
 
 const Astrologers = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState([]);
+
+  const fetchLeadData = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(``);
+      if (!res.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await res.json();
+      setUser(data);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchLeadData();
+  }, []);
 
   return (
-    <main className="">
-      <div className="mx-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <main className="px-2 md:px-12 lg:px-20 ">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* section 1 */}
         <section
-          className="h-36 w-full mx-auto rounded-md flex m-4"
-          style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)" }}
+          className="h-36 w-full mx-auto rounded-md flex"
+          style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)" }}
         >
           <div className="w-20 m-1">
             <img
@@ -86,23 +105,28 @@ const Astrologers = () => {
           </div>
 
           <div className="m-1 w-full ">
-            <p className="mb-1 cursor-pointer hover:text-gray-500" onClick={()=> navigate("/astrologer/1")}>Moolchand</p>
+            <p
+              className="mb-1 cursor-pointer hover:text-gray-500"
+              onClick={() => navigate("/astrologer/1")}
+            >
+              Moolchand
+            </p>
             <p className=" mb-1 text-xs text-gray-500">Vedic</p>
-            <p className=" mb-1 text-gray-600 text-ellipsis overflow-hidden">
+            <p className="text-sm mb-1 text-gray-600 text-ellipsis overflow-hidden">
               Hindi, English
             </p>
-            <p className="text-gray-600 mb-1">Exp: 1 Year</p>
-            <p className="text-xs">
+            <p className="text-gray-600 mb-1 text-sm">Exp: 1 Year</p>
+            <p className="text-sm">
               {" "}
               <span className="text-rose-600 font-bold">FREE</span>{" "}
-              <span className="line-through">10/min</span>
+              <span className="line-through text-xs">10/min</span>
             </p>
           </div>
 
           <div className="right-div flex flex-col">
             <button
               type="submit"
-              className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border-2 rounded-lg px-3  "
+              className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border rounded-lg px-6 py-1"
             >
               Call
             </button>
@@ -112,8 +136,8 @@ const Astrologers = () => {
 
         {/* section 2 */}
         <section
-          className="h-36 w-full mx-auto rounded-md flex m-4"
-          style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)" }}
+          className="h-36 w-full mx-auto rounded-md flex "
+          style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)" }}
         >
           <div className="w-20 m-1">
             <img
@@ -188,21 +212,28 @@ const Astrologers = () => {
           </div>
 
           <div className="m-1 w-full ">
-            <p className="mb-1 cursor-pointer hover:text-gray-500" onClick={()=> navigate("/astrologer/1")}>Moolchand</p>
+            <p
+              className="mb-1 cursor-pointer hover:text-gray-500"
+              onClick={() => navigate("/astrologer/1")}
+            >
+              Moolchand
+            </p>
             <p className=" mb-1 text-xs text-gray-500">Vedic</p>
-            <p className=" mb-1 text-gray-600">Hindi, English</p>
-            <p className="text-gray-600 mb-1">Exp: 1 Year</p>
-            <p className="text-xs">
+            <p className="text-sm mb-1 text-gray-600 text-ellipsis overflow-hidden">
+              Hindi, English
+            </p>
+            <p className="text-gray-600 mb-1 text-sm">Exp: 1 Year</p>
+            <p className="text-sm">
               {" "}
               <span className="text-rose-600 font-bold">FREE</span>{" "}
-              <span className="line-through">10/min</span>
+              <span className="line-through text-xs">10/min</span>
             </p>
           </div>
 
           <div className="right-div flex flex-col">
             <button
               type="submit"
-              className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border-2 rounded-lg px-3  "
+              className="mt-24 mr-4 px-6 py-1 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border rounded-lg"
             >
               Call
             </button>
@@ -212,8 +243,8 @@ const Astrologers = () => {
 
         {/* section 3 */}
         <section
-          className="h-36 w-full mx-auto rounded-md flex m-4"
-          style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)" }}
+          className="h-36 w-full mx-auto rounded-md flex "
+          style={{ boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)" }}
         >
           <div className="w-20 m-1">
             <img
@@ -223,7 +254,6 @@ const Astrologers = () => {
             />
             <div className="flex justify-center mb-1">
               <span className="flex justify-between ">
-                {/* star 1 */}
                 <svg
                   fill="currentColor"
                   stroke="currentColor"
@@ -235,7 +265,7 @@ const Astrologers = () => {
                 >
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
-                {/* star 2 */}
+
                 <svg
                   fill="currentColor"
                   stroke="currentColor"
@@ -247,7 +277,7 @@ const Astrologers = () => {
                 >
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
-                {/* star 3 */}
+
                 <svg
                   fill="currentColor"
                   stroke="currentColor"
@@ -259,7 +289,7 @@ const Astrologers = () => {
                 >
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
-                {/* star 4 */}
+
                 <svg
                   fill="currentColor"
                   stroke="currentColor"
@@ -271,7 +301,7 @@ const Astrologers = () => {
                 >
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                 </svg>
-                {/* star 5 */}
+
                 <svg
                   fill="currentColor"
                   stroke="currentColor"
@@ -289,21 +319,28 @@ const Astrologers = () => {
           </div>
 
           <div className="m-1 w-full ">
-            <p className="mb-1 cursor-pointer hover:text-gray-500" onClick={()=> navigate("/astrologer/1")}>Moolchand</p>
+            <p
+              className="mb-1 cursor-pointer hover:text-gray-500"
+              onClick={() => navigate("/astrologer/1")}
+            >
+              Moolchand
+            </p>
             <p className=" mb-1 text-xs text-gray-500">Vedic</p>
-            <p className=" mb-1 text-gray-600">Hindi, English</p>
-            <p className="text-gray-600 mb-1">Exp: 1 Year</p>
-            <p className="text-xs">
+            <p className="text-sm mb-1 text-gray-600 text-ellipsis overflow-hidden">
+              Hindi, English
+            </p>
+            <p className="text-gray-600 mb-1 text-sm">Exp: 1 Year</p>
+            <p className="text-sm">
               {" "}
               <span className="text-rose-600 font-bold">FREE</span>{" "}
-              <span className="line-through">10/min</span>
+              <span className="line-through text-xs">10/min</span>
             </p>
           </div>
 
-          <div className="flex flex-col">
+          <div className="right-div flex flex-col">
             <button
               type="submit"
-              className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border-2 rounded-lg px-3  "
+              className="mt-24 mr-4 px-6 py-1 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border rounded-lg"
             >
               Call
             </button>

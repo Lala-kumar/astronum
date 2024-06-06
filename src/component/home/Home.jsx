@@ -36,7 +36,7 @@ const Home = () => {
           </h1>
 
           {/* Dropdown */}
-          <section className="flex justify-around gap-1">
+          <section className="flex px-2 md:px-12 lg:px-20 justify-between gap-1 mb-4">
             <h1 className="px-4 py-1 rounded-sm font-semibold text-white bg-pink-700">
               Talk To Astrologer
             </h1>

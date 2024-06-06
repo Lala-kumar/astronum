@@ -14,6 +14,7 @@ import MyWallet from "./component/wallet/MyWallet";
 import AddMoney from "./component/addmoney/AddMoney";
 import Order from './component/order/Order'
 import Kundali from './component/kundali/Kundali'
+import MatchKundali from './component/kundali/MatchKundali'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -31,6 +32,7 @@ const App = () => {
     { path: "/my-wallet/add-money", element: <AddMoney /> },
     { path: "/order", element: <Order /> },
     { path: "/kundali", element: <Kundali /> },
+    { path: "/match-kundali", element: <MatchKundali /> },
   ]);
 
   return (
