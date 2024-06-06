@@ -10,10 +10,39 @@ import logo from "../../assets/astronum-logo.png";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem('token'));
 
   const navigate = useNavigate();
 
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/userlogout', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // assuming you store the token in localStorage
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.ok) {
+       
+       
+        localStorage.removeItem('token'); // clear token from localStorage
+         setToken(null);
+        // Optionally, perform other cleanup (e.g., clear user data from state)
+   
+        navigate("/login")
+      } else {
+        // Handle logout error
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+      // Handle logout error
+    }
+  };
+
   const content = (
+    
     <div>
       <p
         onClick={() => navigate("/account")}
@@ -39,14 +68,20 @@ const Navbar = () => {
       >
         Orders
       </p>
+      {token ? (
       <p
-        onClick={() => navigate("/login")}
+       
+        onClick= { handleLogout }
         className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
       >
         Logout
-      </p>
+      </p> ) :'' }
     </div>
   );
+
+
+ 
+
 
   return (
     <Fragment>
@@ -120,15 +155,20 @@ const Navbar = () => {
                         Kundali
                       </Link>
                     </div>
+                    { !token && 
+                       <div className="flow-root">
+                       <Link
+                         to={"/login"}
+                         className="-m-2 block p-2 font-medium text-gray-900 "
+                       >
+                         Login  
+                       </Link>
+                     </div> 
+                    }
 
-                    <div className="flow-root">
-                      <Link
-                        to={"/login"}
-                        className="-m-2 block p-2 font-medium text-gray-900 "
-                      >
-                        Login
-                      </Link>
-                    </div>
+                    
+                   
+
                   </section>
                 </Dialog.Panel>
               </Transition.Child>
@@ -206,21 +246,20 @@ const Navbar = () => {
                   >
                     Kundali
                   </Link>
-
-                  <Link
+                   { !token &&  <Link
                     to={"/login"}
                     className="text-sm font-medium text-gray-700 "
                   >
                     Login
-                  </Link>
+                  </Link> }
                 </div>
 
                 {/* Admin */}
-                <div className="ml-4 flow-root lg:ml-6 hover:cursor-pointer">
+                {token && ( <div className="ml-4 flow-root lg:ml-6 hover:cursor-pointer">
                   <Popover placement="topRight" content={content}>
                     <Avatar icon={<UserOutlined />} />
                   </Popover>
-                </div>
+                </div> ) }
               </div>
             </section>
           </nav>

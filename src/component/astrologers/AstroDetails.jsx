@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../layout/Layout";
 import logo from "../../assets/astro.jpg";
 import { FaStar } from "react-icons/fa6";
@@ -6,12 +6,50 @@ import AstroAvailable from "./AstroAvailable";
 import { Divider } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 const AstroDetails = () => {
+
+  const [users, setUsers] = useState([]);
+  const [specializationresult,setSpecializationresult] = useState([]);
+  console.log(specializationresult);
+  const {id} = useParams();
+  const fetchUserData = () => {
+    fetch(`http://127.0.0.1:8000/api/users/searchAstro/${id}`)
+      .then(response => {
+       
+        return response.json()
+      })
+      .then(data => {
+        setUsers(data.data[0])
+      ////  console.log(data.data[0],"responseDATA");
+      })
+  }
+
+  const fetchSpecializationData = () => {
+    fetch(`http://127.0.0.1:8000/api/users/specializationFunction`)
+      .then(response => {
+        
+        return response.json()
+      })
+      .then(data => {
+        let words = data.data.split(",");
+        setSpecializationresult(words)
+        ////console.log(words,"Specalization");
+
+      })
+  }
+  useEffect(() => {
+    fetchUserData()
+    fetchSpecializationData()
+    
+  }, []) 
+
   const navigate = useNavigate();
+ 
 
   return (
+   
     <Layout>
       <div className="h-full">
         <h1 className="font-bold mb-6 mx-auto text-center p-2 text-white bg-pink-700">
@@ -29,7 +67,7 @@ const AstroDetails = () => {
               },
 
               {
-                title: <span className="text-white">Moolchand</span>,
+                title: <span className="text-white">{users.name}</span>,
               },
             ]}
           />
@@ -39,19 +77,19 @@ const AstroDetails = () => {
             <section className="w-full border border-pink-300 rounded-md mx-auto flex lg:flex-row md:flex-row flex-col sm:flex-col  m-4 bg-purple-50">
               <div className="m-1 mx-10">
                 <img
-                  src={logo}
+                  src={users.image}
                   alt="Astrologer"
                   className="mx-auto border rounded-full h-[200px] w-[200px] m-1 bg-slate-100"
                 />
               </div>
 
               <div className="m-4 mx-auto ">
-                <p className="mb-2 text-2xl font-bold">Moolchand</p>
+                <p className="mb-2 text-2xl font-bold">{users.name}</p>
                 <p className=" mb-2 text-md text-gray-500">
-                  Vedic, Numerology, Vastu, Prashana{" "}
+                {users.specialization}{" "}
                 </p>
-                <p className=" mb-2 text-gray-600">Hindi, English</p>
-                <p className="text-gray-600 mb-2">Exp: 1 Year</p>
+                <p className=" mb-2 text-gray-600">{users.languages_get}</p>
+                <p className="text-gray-600 mb-2">Exp: {users.experience} Year</p>
 
                 <div className="flex mb-2 text-gray-700">
                   <p className="mr-2  text-center ">Rating : </p>
@@ -107,46 +145,23 @@ const AstroDetails = () => {
             <div className="my-6">
               <h1 className="mx-1 mb-6 font-bold text-xl">Specialization</h1>
               <div className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                <p className="text-center rounded-full py-2 bg-pink-200">
-                  {" "}
-                  Career & Job
-                </p>
+             
+              {specializationresult.map((word, index) =>
+           (
+              
+                 <p  key={index} className="text-center rounded-full py-2 bg-pink-200">
+                {" "}
+                {word} 
+               
+              </p>
+              ))}
+             
+               
                 <p className="text-center rounded-full py-2 bg-pink-200">
                   {" "}
                   Break-Up & Divorce
                 </p>
-                <p className="text-center rounded-full py-2 bg-pink-200">
-                  {" "}
-                  Cheating & Affairs
-                </p>
-                <p className="text-center rounded-full py-2 bg-pink-200">
-                  {" "}
-                  Marital Life
-                </p>
-                <p className="text-center rounded-full py-2 bg-pink-200">
-                  {" "}
-                  Love & Relationship
-                </p>
-                <p className="text-center rounded-full py-2 bg-pink-200">
-                  {" "}
-                  Kids & Education
-                </p>
-                <p className="text-center rounded-full py-2 bg-pink-200">
-                  {" "}
-                  Vedic Astrology
-                </p>
-                <p className="text-center rounded-full py-2 bg-pink-200">
-                  {" "}
-                  Numerology
-                </p>
-                <p className="text-center rounded-full py-2 bg-pink-200">
-                  {" "}
-                  Finance & Business
-                </p>
-                <p className="text-center rounded-full py-2 bg-pink-200">
-                  {" "}
-                  Tarot Reading
-                </p>
+                 
               </div>
             </div>
 

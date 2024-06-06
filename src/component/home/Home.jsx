@@ -1,17 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../layout/Layout";
 import Astrologers from "../astrologers/Astrologers";
 import { useNavigate } from "react-router";
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
+import { forwardRef, useImperativeHandle } from 'react';
+
 
 const Home = () => {
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
+  const [specializationresult,setSpecializationresult] = useState([]);
+  const [id, setId] = useState('')
+  const fetchSpecializationData = () => {
+    fetch(`http://127.0.0.1:8000/api/users/allSpecialization`)
+      .then(response => {
+        
+        return response.json()
+      })
+      .then(data => {
+        setSpecializationresult(data.data)
+        console.log(data.data,"Specalization");
+
+      })
+  }
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setSelectedSpecialization(e.target.value);
+   
+    console.log(e.target.value,"CONSOLE VALUE"); 
+ 
   };
+
+  useEffect(() => {
+    fetchSpecializationData()
+   
+    
+  }, [])
   return (
     <div>
       <Layout>
@@ -46,19 +71,11 @@ const Home = () => {
                 onChange={handleChange}
                 className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
               >
-                <option value="">All</option>
-                <option value="Career & Job">Career & Job</option>
-                <option value="Break-Up & Divorce">Break-Up & Divorce</option>
-                <option value="Cheating & Affairs">Cheating & Affairs</option>
-                <option value="Marital Life">Marital Life</option>
-                <option value="Kids & Education">Kids & Education</option>
-                <option value="Vedic Astrology">Vedic Astrology</option>
-                <option value="Numerology">Numerology</option>
-                <option value="Finance & Business">Finance & Business</option>
-                <option value="Tarot Reading">Tarot Reading</option>
-                <option value="Tarot Reading">Palm Reading</option>
-                <option value="Tarot Reading">Horary Astrology</option>
-                <option value="Tarot Reading">Psychic Reading</option>
+                <option value=''>All</option>
+                 { specializationresult.map(speresult => (
+               <option  key={speresult.id} value= {speresult.id} >{speresult.name}</option>
+               
+                 )) }
               </select>
 
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -74,7 +91,7 @@ const Home = () => {
           </section>
 
           {/* Astrologer Card */}
-          <Astrologers />
+          <Astrologers  specializationfilter= {selectedSpecialization}/>
         </div>
       </Layout>
     </div>

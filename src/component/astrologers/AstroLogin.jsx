@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { message } from 'antd';
 
 const App = () => {
+  const [token, setToken] = useState(localStorage.getItem('token'));
   const [open, setOpen] = useState(false);
+  
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({
+    username: "", 
+    password:"",
+    errors: {}
+  });
+  const navigate = useNavigate();
 
   const showModal = () => {
     setOpen(true);
@@ -20,12 +31,35 @@ const App = () => {
       });
       return;
     }
+  
+    axios
+    .post("http://127.0.0.1:8000/api/astrologin", {
+      email:email,
+      password:password, 
+    })
+    .then((response) => {
+      console.log(response.data.status,"DATA RESPONSE")
+      if(response.data.status =="success"){
+         const authToken = response.data.access_token; // assuming the server sends back the token in the response
+        localStorage.setItem('token', authToken); // Store token in localStorage`
+        localStorage.setItem('astroId', response.data.userID);
+        setToken(authToken);
+        message.success('Login was successful!');
+        navigate("/astroaccount")
+      }
+  
+    }) .catch((error) => {
+      
+     
+     
+    })
+
     // Perform authentication logic here
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
+    // setConfirmLoading(true);
+    // setTimeout(() => {
+    //   setOpen(false);
+    //   setConfirmLoading(false);
+    // }, 2000);
   };
 
   const handleCancel = () => {
