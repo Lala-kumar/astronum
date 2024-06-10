@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
 
@@ -5,9 +6,40 @@ import Layout from "../layout/Layout";
 import { useNavigate } from "react-router";
 import GirlForm from "./GirlForm";
 import BoyForm from "./BoyForm";
+import { useState } from "react";
+import KundaliDescription from "./KundaliDescription";
 
 const MatchKundali = () => {
   const navigate = useNavigate();
+
+  const [girlFormData, setGirlFormData] = useState({
+    girlname: "",
+    girldateOfBirth: {
+      day: "",
+      month: "",
+      year: "",
+    },
+    girlplaceOfBirth: "",
+  });
+
+  const [boyFormData, setBoyFormData] = useState({
+    boyname: "",
+    boydateOfBirth: {
+      day: "",
+      month: "",
+      year: "",
+    },
+    boyplaceOfBirth: "",
+  });
+
+  const handleGenerateKundli = async () => {
+    const combinedData = {
+      ...girlFormData,
+      ...boyFormData,
+    };
+
+    console.log(combinedData);
+  };
 
   return (
     <div className="bg-pink-50">
@@ -33,8 +65,8 @@ const MatchKundali = () => {
           />
         </h1>
 
-        <div className="min-h-screen mx-4 sm:mx-6 md:mx-12 lg:mx-20">
-          <div className="container mx-auto py-8 ">
+        <div className="min-h-screen mx-4 sm:mx-6 md:mx-12 lg:mx-20 ">
+          <div className="container mx-auto py-8 w-full">
             <section className="font-bold mb-6 flex flex-col text-center p-2 mx-auto rounded-md items-center justify-center ">
               <p className="text-xl opacity-80">
                 KUNDALI MATCHING FOR MARRIEGE
@@ -63,22 +95,33 @@ const MatchKundali = () => {
               </p>
             </section>
 
-            <div className="w-full flex flex-col sm:flex-row">
-              <GirlForm />
-              <BoyForm />
+            <div className="max-w-md md:max-w-4xl flex flex-col md:flex-row mx-auto">
+              <GirlForm formData={girlFormData} setFormData={setGirlFormData} />
+              <BoyForm formData={boyFormData} setFormData={setBoyFormData} />
             </div>
-            {/* <button
-              type="submit"
-              className="bg-rose-500 w-40 text-white py-2 px-4 rounded-full hover:bg-rose-600 focus:outline-none"
-            >
-              Generate Kundli
-            </button> */}
+            <div className="max-w-md pb-5 bg-white md:max-w-4xl flex  justify-center md:justify-end gap-3 mx-auto">
+              <button
+                type="button"
+                className="bg-rose-500 w-40 text-white py-2 px-4 rounded-full hover:bg-rose-600 focus:outline-none"
+                onClick={handleGenerateKundli}
+              >
+                Reset
+              </button>
+              <button
+                style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px" }}
+                type="button"
+                className="bg-rose-500 w-40 text-white py-2 px-4 rounded-full hover:bg-rose-600 focus:outline-none"
+                onClick={handleGenerateKundli}
+              >
+                Generate Kundli
+              </button>
+            </div>
           </div>
+          <KundaliDescription />
         </div>
       </Layout>
     </div>
   );
-  F;
 };
 
 export default MatchKundali;

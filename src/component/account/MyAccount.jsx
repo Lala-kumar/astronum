@@ -1,11 +1,104 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { HomeOutlined } from "@ant-design/icons";
-import { Breadcrumb } from "antd";
-import React from "react";
+import { Breadcrumb, message } from "antd";
 import Layout from "../layout/Layout";
 import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const MyAccount = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  const [formData, setFormData] = useState({
+    name: "",
+    gender: "",
+    dob: "",
+    time_of_birth: "",
+    place_of_birth: "",
+    address: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const fetchProfile = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL +
+          `api/users/profileget/${token.userID}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token.access_token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      setFormData({
+        name: data.data.first_name,
+        gender: data.data.gender,
+        dob: data.data.dob,
+        time_of_birth: data.data.time_of_birth,
+        place_of_birth: data.data.place_of_birth,
+        address: data.data.address,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  // ********************** Basic Info Submit Section  **********************
+  const HandleBasicFormSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL +
+          `api/users/updateProfile/${token.userID}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token.access_token}`,
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            gender: formData.gender,
+            dob: formData.dob,
+            time_of_birth: formData.time_of_birth,
+            place_of_birth: formData.place_of_birth,
+            address: formData.address,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      if (data?.status === "success") {
+        message.success("Profile Updated Successfully!");
+      } else {
+        message.error("Something went wrong!");
+      }
+
+      fetchProfile();
+      setLoading(false);
+    } catch (error) {
+      console.error(error.message);
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Layout>
@@ -42,7 +135,10 @@ const MyAccount = () => {
             >
               {/* section left */}
               <div className="w-full sm:max-w-md mx-auto p-3 bg-stone-50 rounded-xl">
-                <form className="max-w-md mx-auto">
+                <form
+                  className="max-w-md mx-auto"
+                  onSubmit={HandleBasicFormSubmit}
+                >
                   <label htmlFor="name" className="block">
                     Full Name :
                   </label>
@@ -51,19 +147,24 @@ const MyAccount = () => {
                     id="name"
                     name="name"
                     type="text"
-                    placeholder="Adam Glichrisht"
+                    placeholder="Full Name"
+                    value={formData.name}
+                    onChange={handleChange}
                   />
 
-                  <label htmlFor="email" className="block">
-                    Email :
+                  <label htmlFor="gender" className="block">
+                    Gender :
                   </label>
-                  <input
-                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Example@gmail.com"
-                  />
+                  <select
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleChange}
+                    className="w-full px-8 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                  >
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
 
                   <label htmlFor="dob" className="block">
                     Date of Birth :
@@ -73,22 +174,70 @@ const MyAccount = () => {
                     id="dob"
                     name="dob"
                     type="date"
-                    placeholder="01/01/2000"
+                    value={formData.dob}
+                    onChange={handleChange}
+                  />
+
+                  <label htmlFor="time_of_birth" className="block">
+                    Time of Birth :
+                  </label>
+                  <input
+                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    id="time_of_birth"
+                    name="time_of_birth"
+                    type="time"
+                    value={formData.time_of_birth}
+                    onChange={handleChange}
+                  />
+
+                  <label htmlFor="place_of_birth" className="block">
+                    Place Of Birth :
+                  </label>
+                  <input
+                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    id="place_of_birth"
+                    name="place_of_birth"
+                    type="text"
+                    placeholder="Birth Place"
+                    value={formData.place_of_birth}
+                    onChange={handleChange}
+                  />
+
+                  <label htmlFor="address" className="block">
+                    City,State,Country:
+                  </label>
+                  <input
+                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    id="address"
+                    name="address"
+                    type="text"
+                    placeholder="Address"
+                    value={formData.address}
+                    onChange={handleChange}
                   />
 
                   <div className="flex justify-between mb-10">
                     <button
-                      type="submit"
+                      disabled
                       className="w-full text-sm border-pink-500 border hover:text-white py-2 px-2 m-1 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
                     >
                       Cancel
                     </button>
-                    <button
-                      type="submit"
-                      className="w-full text-sm border-pink-500 border hover:text-white py-2 px-2 m-1 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
-                    >
-                      Save Changes
-                    </button>
+                    {loading ? (
+                      <button
+                        disabled
+                        className="w-full cursor-not-allowed text-sm border-pink-500 border hover:text-white py-2 px-2 m-1 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                      >
+                        <LoadingOutlined />
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="w-full text-sm border-pink-500 border hover:text-white py-2 px-2 m-1 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                      >
+                        Save Changes
+                      </button>
+                    )}
                   </div>
                 </form>
               </div>

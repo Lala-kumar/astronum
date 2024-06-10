@@ -1,9 +1,50 @@
-import React from "react";
+/* eslint-disable react/no-unescaped-entities */
 import Layout from "../layout/Layout";
 import loginSvg from "../../assets/login.svg";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { message } from "antd";
 
 const Login = () => {
+  const initialData = {
+    email: "",
+    password: "",
+  };
+  const [formData, setFormData] = useState(initialData);
+
+  const HandleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const HandleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + "api/userlogin",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        message.success("Login Successfull!");
+      } else {
+        message.error("Login Failed!");
+      }
+
+      localStorage.setItem("token", JSON.stringify(data));
+      setFormData(initialData);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <Layout>
       <main className="h-full pt-20 pb-20 mx-auto px-10 flex flex-col md:px-28 bg-gray-100">
@@ -15,9 +56,9 @@ const Login = () => {
               <img alt="login-img" src={loginSvg} />
             </div>
           </div>
-          
+
           <div className="w-full sm:max-w-sm mx-5">
-            <form className="max-w-md mx-auto">
+            <form className="max-w-md mx-auto" onSubmit={HandleSubmit}>
               <label htmlFor="email" className="block mb-4">
                 <input
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
@@ -25,6 +66,9 @@ const Login = () => {
                   name="email"
                   type="email"
                   placeholder="Email address"
+                  value={formData.email}
+                  onChange={HandleChange}
+                  required
                 />
               </label>
 
@@ -35,6 +79,9 @@ const Login = () => {
                   name="password"
                   type="password"
                   placeholder="Password"
+                  value={formData.password}
+                  onChange={HandleChange}
+                  required
                 />
               </label>
 

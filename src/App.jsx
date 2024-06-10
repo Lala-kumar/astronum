@@ -1,4 +1,3 @@
-import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./component/home/Home";
 import Rating from "./component/rating/Rating";
@@ -12,13 +11,17 @@ import AstroDetails from "./component/astrologers/AstroDetails";
 import Pooja from "./component/pooja/Pooja";
 import MyWallet from "./component/wallet/MyWallet";
 import AddMoney from "./component/addmoney/AddMoney";
-import Order from './component/order/Order'
-import Kundali from './component/kundali/Kundali'
-import MatchKundali from './component/kundali/MatchKundali'
+import Order from "./component/order/Order";
+import Kundali from "./component/kundali/Kundali";
+import MatchKundali from "./component/kundali/MatchKundali";
+import NoPage from "./component/nopage/NoPage";
+ 
+import MyProvider from "./store/MyProvider";
 
 const App = () => {
   const router = createBrowserRouter([
     { path: "/", element: <Home /> },
+    { path: "/*", element: <NoPage /> },
     { path: "/rating", element: <Rating /> },
     { path: "/account", element: <MyAccount /> },
     { path: "/notification", element: <Notification /> },
@@ -37,7 +40,9 @@ const App = () => {
 
   return (
     <div>
-      <RouterProvider router={router} />
+      <MyProvider>
+        <RouterProvider router={router} />
+      </MyProvider>
     </div>
   );
 };

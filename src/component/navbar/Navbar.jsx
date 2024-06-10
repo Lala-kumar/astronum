@@ -11,6 +11,8 @@ import logo from "../../assets/astronum-logo.png";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
+  const user = JSON.parse(localStorage.getItem("token"));
+
   const navigate = useNavigate();
 
   const content = (
@@ -232,11 +234,14 @@ const Navbar = () => {
                 </div>
 
                 {/* Admin */}
-                <div className="ml-4 flow-root lg:ml-6 hover:cursor-pointer">
-                  <Popover placement="topRight" content={content}>
-                    <Avatar icon={<UserOutlined />} />
-                  </Popover>
-                </div>
+
+                {user?.status === "success" && (
+                  <div className="ml-4 flow-root lg:ml-6 hover:cursor-pointer">
+                    <Popover placement="topRight" content={content}>
+                      <Avatar icon={<UserOutlined />} />
+                    </Popover>
+                  </div>
+                )}
               </div>
             </section>
           </nav>

@@ -1,28 +1,8 @@
-import React, { useEffect, useState } from "react";
 import logo from "../../assets/astro.jpg";
 import { useNavigate } from "react-router";
 
 const Astrologers = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState([]);
-
-  const fetchLeadData = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch(``);
-      if (!res.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const data = await res.json();
-      setUser(data);
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchLeadData();
-  }, []);
 
   return (
     <main className="px-2 md:px-12 lg:px-20 ">
