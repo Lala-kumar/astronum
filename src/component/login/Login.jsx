@@ -4,6 +4,7 @@ import loginSvg from "../../assets/login.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { message } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const Login = () => {
   const initialData = {
@@ -11,6 +12,7 @@ const Login = () => {
     password: "",
   };
   const [formData, setFormData] = useState(initialData);
+  const [loading, setLoading] = useState(false);
 
   const HandleChange = (e) => {
     const { name, value } = e.target;
@@ -19,6 +21,7 @@ const Login = () => {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await fetch(
@@ -40,8 +43,11 @@ const Login = () => {
 
       localStorage.setItem("token", JSON.stringify(data));
       setFormData(initialData);
+      setLoading(false);
     } catch (error) {
       console.error(error.message);
+      setLoading(false);
+      message.error("Something went wrong try login again.");
     }
   };
 
@@ -93,12 +99,21 @@ const Login = () => {
               </a>
 
               <div className="flex flex-col items-center  lg:justify-between">
-                <button
-                  type="submit"
-                  className="w-full  bg-pink-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
-                >
-                  Login
-                </button>
+                {loading ? (
+                  <button
+                    disabled
+                    className="w-full cursor-not-allowed bg-pink-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                  >
+                    <LoadingOutlined />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="w-full  bg-pink-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                  >
+                    Login
+                  </button>
+                )}
 
                 <p className="text-sm font-semibold mt-2 mb-0 text-neutral-600">
                   Don't have an account?{" "}

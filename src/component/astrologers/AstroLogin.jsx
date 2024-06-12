@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Modal } from "antd";
+import { useState } from "react";
+import { Modal, message } from "antd";
 
 const App = () => {
   const [open, setOpen] = useState(false);
@@ -11,7 +11,7 @@ const App = () => {
   const showModal = () => {
     setOpen(true);
   };
-  const handleOk = () => {
+  const handleOk = async () => {
     // Basic validation
     if (!email || !password) {
       setErrors({
@@ -22,10 +22,32 @@ const App = () => {
     }
     // Perform authentication logic here
     setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + "api/astrologin",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email, password: password }),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+
+      if (data.status === "success") {
+        message.success("Login Successfull!");
+      } else {
+        message.error("Login Failed!");
+      }
+
+      localStorage.setItem("token", JSON.stringify(data));
       setConfirmLoading(false);
-    }, 2000);
+    } catch (error) {
+      console.error(error.message);
+      setConfirmLoading(false);
+      message.error("Something went wrong try login again.");
+    }
   };
 
   const handleCancel = () => {

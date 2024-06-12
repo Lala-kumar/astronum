@@ -3,14 +3,15 @@ import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb, message } from "antd";
 import Layout from "../layout/Layout";
 import { useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
+import MyContext from "../../context/MyContext";
 
 const MyAccount = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const token = JSON.parse(localStorage.getItem("token"));
+  const { token } = useContext(MyContext);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -19,6 +20,11 @@ const MyAccount = () => {
     time_of_birth: "",
     place_of_birth: "",
     address: "",
+  });
+
+  const [passworData, setPasswordData] = useState({
+    current_password: "",
+    new_password: "",
   });
 
   const handleChange = (event) => {
@@ -61,9 +67,9 @@ const MyAccount = () => {
   // ********************** Basic Info Submit Section  **********************
   const HandleBasicFormSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     try {
+      setLoading(true);
       const response = await fetch(
         import.meta.env.VITE_SERVER_URL +
           `api/users/updateProfile/${token.userID}`,
@@ -97,6 +103,47 @@ const MyAccount = () => {
       console.error(error.message);
       setLoading(false);
     }
+  };
+
+  // ********************** Change password submit Section  **********************
+
+  const HandlePasswordSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL +
+          `api/users/changepassword/${token.userID}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token.access_token}`,
+          },
+          body: JSON.stringify(passworData),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+      if (data?.status === "success") {
+        message.success("Password Updated Successfully!");
+      } else {
+        message.error("Something went wrong!");
+      }
+
+      fetchProfile();
+      setLoading(false);
+    } catch (error) {
+      console.error(error.message);
+      setLoading(false);
+    }
+  };
+
+  const HandlePasswordChange = (event) => {
+    const { name, value } = event.target;
+    setPasswordData((prevState) => ({ ...prevState, [name]: value }));
   };
 
   return (
@@ -250,36 +297,52 @@ const MyAccount = () => {
                   Enter your current password to make update
                 </h1>
 
-                <form className="max-w-md mx-auto">
-                  <label htmlFor="password" className="block">
+                <form
+                  className="max-w-md mx-auto"
+                  onSubmit={HandlePasswordSubmit}
+                >
+                  <label htmlFor="current_password" className="block">
                     Current Password :
                   </label>
                   <input
                     className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
-                    id="password"
-                    name="password"
-                    type="password"
+                    id="current_password"
+                    name="current_password"
+                    type="current_password"
                     placeholder="Enter Password"
+                    value={passworData.current_password}
+                    onChange={HandlePasswordChange}
                   />
 
-                  <label htmlFor="newPassword" className="block">
+                  <label htmlFor="new_password" className="block">
                     New Password :
                   </label>
                   <input
                     className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
-                    id="newPassword"
-                    name="newPassword"
+                    id="new_password"
+                    name="new_password"
                     type="password"
                     placeholder="Enter New Passowrd"
+                    value={passworData.new_password}
+                    onChange={HandlePasswordChange}
                   />
 
                   <div className="flex flex-col items-end  lg:justify-between">
-                    <button
-                      type="submit"
-                      className="w-1/2 text-sm border border-pink-500 py-2 px-2 m-1 hover:text-white rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
-                    >
-                      Update
-                    </button>
+                    {loading ? (
+                      <button
+                        disabled
+                        className="w-1/2 cursor-not-allowed text-sm border border-pink-500 py-2 px-2 m-1 hover:text-white rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                      >
+                        <LoadingOutlined />
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="w-1/2 text-sm border border-pink-500 py-2 px-2 m-1 hover:text-white rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                      >
+                        Update
+                      </button>
+                    )}
                   </div>
                 </form>
               </div>

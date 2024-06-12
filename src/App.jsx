@@ -15,8 +15,8 @@ import Order from "./component/order/Order";
 import Kundali from "./component/kundali/Kundali";
 import MatchKundali from "./component/kundali/MatchKundali";
 import NoPage from "./component/nopage/NoPage";
- 
-import MyProvider from "./store/MyProvider";
+
+import MyProvider from "./context/MyProvider";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -29,7 +29,7 @@ const App = () => {
     { path: "/signup", element: <SignUp /> },
     { path: "/astrologer-login", element: <AstroLogin /> },
     { path: "/astrologer-register", element: <AstroRegister /> },
-    { path: "/astrologer/1", element: <AstroDetails /> },
+    { path: "/astrologer/:id", element: <AstroDetails /> },
     { path: "/pooja", element: <Pooja /> },
     { path: "/my-wallet", element: <MyWallet /> },
     { path: "/my-wallet/add-money", element: <AddMoney /> },

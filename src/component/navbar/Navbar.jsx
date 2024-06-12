@@ -12,8 +12,12 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("token"));
-
   const navigate = useNavigate();
+
+  const HandleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   const content = (
     <div>
@@ -42,7 +46,7 @@ const Navbar = () => {
         Orders
       </p>
       <p
-        onClick={() => navigate("/login")}
+        onClick={HandleLogout}
         className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
       >
         Logout
