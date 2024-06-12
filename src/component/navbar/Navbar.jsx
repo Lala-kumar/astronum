@@ -6,17 +6,20 @@ import { Dialog, Transition } from "@headlessui/react";
 import { RxCross2 } from "react-icons/rx";
 import { Avatar, Popover } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import logo from "../../assets/astronum-logo.png";
+import logo from "../../assets/astroLogo.png";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
-  const user = JSON.parse(localStorage.getItem("token"));
+  const user = JSON.parse(localStorage.getItem("user"));
+  const astro = JSON.parse(localStorage.getItem("astro"));
+
   const navigate = useNavigate();
 
   const HandleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem("user");
+    localStorage.removeItem("astro");
+    navigate("/");
   };
 
   const content = (
@@ -44,6 +47,23 @@ const Navbar = () => {
         className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
       >
         Orders
+      </p>
+      <p
+        onClick={HandleLogout}
+        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+      >
+        Logout
+      </p>
+    </div>
+  );
+
+  const AstroContent = (
+    <div>
+      <p
+        onClick={() => navigate("/astro-account")}
+        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+      >
+        My Account
       </p>
       <p
         onClick={HandleLogout}
@@ -184,19 +204,12 @@ const Navbar = () => {
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
                 <Link to={"/"} className="flex">
-                  <div className="flex ">
+                  <div className="flex items-center">
                     <h1 className=" text-2xl font-bold text-gray-600 px-2 py-1 rounded">
-                      <img
-                        src={logo}
-                        alt="Astronum"
-                        className="rounded-full h-12 w-12"
-                      />
+                      <img src={logo} alt="Astronum" className="h-12 w-12" />
                     </h1>
                     <div>
                       <p className="font-bold text-xl">Astronum</p>
-                      <p className="text-xs text-pink-500">
-                        Astrologers For Better Life
-                      </p>
                     </div>
                   </div>
                 </Link>
@@ -242,6 +255,14 @@ const Navbar = () => {
                 {user?.status === "success" && (
                   <div className="ml-4 flow-root lg:ml-6 hover:cursor-pointer">
                     <Popover placement="topRight" content={content}>
+                      <Avatar icon={<UserOutlined />} />
+                    </Popover>
+                  </div>
+                )}
+
+                {astro?.type === "Astro" && (
+                  <div className="ml-4 flow-root lg:ml-6 hover:cursor-pointer">
+                    <Popover placement="topRight" content={AstroContent}>
                       <Avatar icon={<UserOutlined />} />
                     </Popover>
                   </div>

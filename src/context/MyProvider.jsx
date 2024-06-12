@@ -5,9 +5,8 @@ import MyContext from "./MyContext";
 const MyProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [astrologer, setAstrologer] = useState([]);
-
-  const token = JSON.parse(localStorage.getItem("token"));
- 
+  const [allSpecialization, setAllSpecialization] = useState([]);
+  const [allLanguage, setAllLanguage] = useState([]);
 
   // ********************** All Astrologers Section  **********************
   const fetchAllAstrologers = async () => {
@@ -20,6 +19,10 @@ const MyProvider = ({ children }) => {
         }
       );
 
+      if (!response.ok) {
+        throw new Error("Error Fetching All Astrologer!");
+      }
+
       const data = await response.json();
 
       if (data.status === "success") {
@@ -30,13 +33,71 @@ const MyProvider = ({ children }) => {
     }
   };
 
+  // ********************** All Specialization Section  **********************
+  const fetchAllSpecialization = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + "api/users/allSpecialization"
+      );
+
+      if (!response.ok) {
+        throw new Error("Error Fetching All Specialization!");
+      }
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        setAllSpecialization(data.data);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  // ********************** All Language Section  **********************
+  const fetchAllLanguage = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + "api/users/allLanguages"
+      );
+
+      if (!response.ok) {
+        throw new Error("Error Fetching All Language!");
+      }
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        setAllLanguage(data.data);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const ReloadAllAstro = () => {
+    fetchAllAstrologers();
+  };
+
   useEffect(() => {
     fetchAllAstrologers();
+    fetchAllSpecialization();
+    fetchAllLanguage();
   }, []);
 
   return (
     <MyContext.Provider
-      value={{ user, setUser, astrologer, setAstrologer, token }}
+      value={{
+        user,
+        setUser,
+        astrologer,
+        setAstrologer,
+        allSpecialization,
+        setAllSpecialization,
+        allLanguage,
+        setAllLanguage,
+        ReloadAllAstro,
+      }}
     >
       {children}
     </MyContext.Provider>

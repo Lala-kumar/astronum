@@ -3,15 +3,14 @@ import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb, message } from "antd";
 import Layout from "../layout/Layout";
 import { useNavigate } from "react-router";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
-import MyContext from "../../context/MyContext";
 
 const MyAccount = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const { token } = useContext(MyContext);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [formData, setFormData] = useState({
     name: "",
@@ -23,9 +22,39 @@ const MyAccount = () => {
   });
 
   const [passworData, setPasswordData] = useState({
+    id: user.userID,
     current_password: "",
     new_password: "",
   });
+
+  const [errors, setErrors] = useState({
+    current_password: "",
+    new_password: "",
+  });
+
+  // const validateForm = () => {
+  //   const { current_password, new_password } = passworData;
+
+  //   let isValid = true;
+
+  //   let newErrors = {
+  //     current_password: "",
+  //     new_password: "",
+  //   };
+
+  //   if (current_password.trim().length < 4) {
+  //     newErrors.current_password =
+  //       "Password must be greater than 4 characters!";
+  //     isValid = false;
+  //   }
+
+  //   if (new_password.trim().length < 8) {
+  //     newErrors.new_password = "Password must be greater than 8 characters!";
+  //     isValid = false;
+  //   }
+  //   setErrors(newErrors);
+  //   return isValid;
+  // };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -35,12 +64,11 @@ const MyAccount = () => {
   const fetchProfile = async () => {
     try {
       const response = await fetch(
-        import.meta.env.VITE_SERVER_URL +
-          `api/users/profileget/${token.userID}`,
+        import.meta.env.VITE_SERVER_URL + `api/users/profileget/${user.userID}`,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         }
       );
@@ -72,12 +100,12 @@ const MyAccount = () => {
       setLoading(true);
       const response = await fetch(
         import.meta.env.VITE_SERVER_URL +
-          `api/users/updateProfile/${token.userID}`,
+          `api/users/updateProfile/${user.userID}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
           body: JSON.stringify({
             name: formData.name,
@@ -91,6 +119,7 @@ const MyAccount = () => {
       );
 
       const data = await response.json();
+      console.log(data);
       if (data?.status === "success") {
         message.success("Profile Updated Successfully!");
       } else {
@@ -110,16 +139,16 @@ const MyAccount = () => {
   const HandlePasswordSubmit = async (e) => {
     e.preventDefault();
 
+    // if (validateForm()) {
     try {
       setLoading(true);
       const response = await fetch(
-        import.meta.env.VITE_SERVER_URL +
-          `api/users/changepassword/${token.userID}`,
+        import.meta.env.VITE_SERVER_URL + `api/users/changepassword`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
           body: JSON.stringify(passworData),
         }
@@ -129,8 +158,10 @@ const MyAccount = () => {
       console.log(data);
       if (data?.status === "success") {
         message.success("Password Updated Successfully!");
+        HandleClear();
       } else {
-        message.error("Something went wrong!");
+        setErrors(data.data);
+        // message.error("Something went wrong!");
       }
 
       fetchProfile();
@@ -139,6 +170,7 @@ const MyAccount = () => {
       console.error(error.message);
       setLoading(false);
     }
+    // }
   };
 
   const HandlePasswordChange = (event) => {
@@ -146,10 +178,15 @@ const MyAccount = () => {
     setPasswordData((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const HandleClear = () => {
+    setErrors({ current_password: "", new_password: "" });
+    setPasswordData({ current_password: "", new_password: "" });
+  };
+
   return (
     <>
       <Layout>
-        <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20  text-center p-2 text-white bg-pink-700">
+        <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20  text-center p-2 text-white bg-[#fbb62e]">
           <Breadcrumb
             className="text-gray-50 "
             separator={<span style={{ color: "white" }}>&gt;</span>}
@@ -190,7 +227,7 @@ const MyAccount = () => {
                     Full Name :
                   </label>
                   <input
-                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="name"
                     name="name"
                     type="text"
@@ -206,7 +243,7 @@ const MyAccount = () => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleChange}
-                    className="w-full px-8 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-8 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                   >
                     <option value="">Select</option>
                     <option value="Male">Male</option>
@@ -217,7 +254,7 @@ const MyAccount = () => {
                     Date of Birth :
                   </label>
                   <input
-                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="dob"
                     name="dob"
                     type="date"
@@ -229,7 +266,7 @@ const MyAccount = () => {
                     Time of Birth :
                   </label>
                   <input
-                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="time_of_birth"
                     name="time_of_birth"
                     type="time"
@@ -241,7 +278,7 @@ const MyAccount = () => {
                     Place Of Birth :
                   </label>
                   <input
-                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="place_of_birth"
                     name="place_of_birth"
                     type="text"
@@ -254,7 +291,7 @@ const MyAccount = () => {
                     City,State,Country:
                   </label>
                   <input
-                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="address"
                     name="address"
                     type="text"
@@ -266,21 +303,22 @@ const MyAccount = () => {
                   <div className="flex justify-between mb-10">
                     <button
                       disabled
-                      className="w-full text-sm border-pink-500 border hover:text-white py-2 px-2 m-1 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                      type="button"
+                      className="w-full text-sm border-amber-500 border hover:text-white py-2 px-2 m-1 rounded-md shadow-md hover:bg-amber-500 uppercase mb-4 lg:mb-0"
                     >
                       Cancel
                     </button>
                     {loading ? (
                       <button
                         disabled
-                        className="w-full cursor-not-allowed text-sm border-pink-500 border hover:text-white py-2 px-2 m-1 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                        className="w-full cursor-not-allowed text-sm border-amber-500 border hover:text-white py-2 px-2 m-1 rounded-md shadow-md hover:bg-amber-500 uppercase mb-4 lg:mb-0"
                       >
                         <LoadingOutlined />
                       </button>
                     ) : (
                       <button
                         type="submit"
-                        className="w-full text-sm border-pink-500 border hover:text-white py-2 px-2 m-1 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                        className="w-full text-sm border-amber-500 border hover:text-white py-2 px-2 m-1 rounded-md shadow-md hover:bg-amber-500 uppercase mb-4 lg:mb-0"
                       >
                         Save Changes
                       </button>
@@ -305,7 +343,7 @@ const MyAccount = () => {
                     Current Password :
                   </label>
                   <input
-                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="current_password"
                     name="current_password"
                     type="current_password"
@@ -313,12 +351,15 @@ const MyAccount = () => {
                     value={passworData.current_password}
                     onChange={HandlePasswordChange}
                   />
+                  <p className="text-red-600  h-5 text-sm">
+                    {errors.current_password}
+                  </p>
 
                   <label htmlFor="new_password" className="block">
                     New Password :
                   </label>
                   <input
-                    className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="new_password"
                     name="new_password"
                     type="password"
@@ -326,19 +367,29 @@ const MyAccount = () => {
                     value={passworData.new_password}
                     onChange={HandlePasswordChange}
                   />
+                  <p className="text-red-600  h-5 text-sm">
+                    {errors.new_password}
+                  </p>
 
-                  <div className="flex flex-col items-end  lg:justify-between">
+                  <div className="flex items-end justify-between">
+                    <button
+                      type="button"
+                      onClick={HandleClear}
+                      className="w-full text-sm border-amber-500 border hover:text-white py-2 px-2 m-1 rounded-md shadow-md hover:bg-amber-500 uppercase mb-4 lg:mb-0"
+                    >
+                      Cancel
+                    </button>
                     {loading ? (
                       <button
                         disabled
-                        className="w-1/2 cursor-not-allowed text-sm border border-pink-500 py-2 px-2 m-1 hover:text-white rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                        className="w-full  cursor-not-allowed text-sm border border-amber-500 py-2 px-2 m-1 hover:text-white rounded-md shadow-md hover:bg-amber-500 uppercase mb-4 lg:mb-0"
                       >
                         <LoadingOutlined />
                       </button>
                     ) : (
                       <button
                         type="submit"
-                        className="w-1/2 text-sm border border-pink-500 py-2 px-2 m-1 hover:text-white rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                        className="w-full  text-sm border border-amber-500 py-2 px-2 m-1 hover:text-white rounded-md shadow-md hover:bg-amber-500 uppercase mb-4 lg:mb-0"
                       >
                         Update
                       </button>

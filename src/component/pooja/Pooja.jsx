@@ -1,4 +1,4 @@
-import React from "react";
+
 import Layout from "../layout/Layout";
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
@@ -58,7 +58,7 @@ const Pooja = () => {
     <div className="">
       <Layout>
         {/* BreadCrumbs */}
-        <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20  text-center p-2 text-white bg-pink-700">
+        <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20  text-center p-2 text-white bg-[#fbb62e]">
           <Breadcrumb
             className="text-gray-50 "
             separator={<span style={{ color: "white" }}>&gt;</span>}
@@ -78,9 +78,9 @@ const Pooja = () => {
           />
         </h1>
 
-        <h1 className="font-bold bg-pink-100 mb-6 flex flex-col text-center p-2 mx-auto rounded-md items-center justify-center ">
+        <h1 className="font-bold bg-amber-100 mb-6 flex flex-col text-center p-2 mx-auto rounded-md items-center justify-center ">
           <p className="text-xl"> MOST BOOKED PUJAS</p>
-          <p className="w-36 h-[2px] bg-pink-600 m-2 "></p>
+          <p className="w-36 h-[2px] bg-amber-400 m-2 "></p>
         </h1>
 
         {/* Render Pooja Items */}
@@ -91,7 +91,7 @@ const Pooja = () => {
               key={index}
               style={{ width: "auto", height: "400px" }} // Set width and height here
             >
-              <div className="border-pink-400 border h-full bg-contain rounded-3xl flex flex-col">
+              <div className="border-amber-400 border h-full bg-contain rounded-3xl flex flex-col">
                 <section className="flex bg-fit m-2 justify-center cursor-pointer">
                   <img
                     className=" rounded-3xl object-cover max-w-[3000px] bg-red-500 h-80 overflow-hidden"
@@ -108,13 +108,13 @@ const Pooja = () => {
                     {pooja.description}
                   </p>
 
-                  <p className="leading-relaxed mb-3 text-xs text-pink-700">
+                  <p className="leading-relaxed mb-3 text-xs text-amber-700">
                     {pooja.price}
                   </p>
                   <div>
                     <button
                       type="button"
-                      className="focus:outline-none text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm w-full py-2"
+                      className="focus:outline-none text-white bg-amber-400 hover:bg-[#fbb62e] focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm w-full py-2"
                     >
                       Book
                     </button>

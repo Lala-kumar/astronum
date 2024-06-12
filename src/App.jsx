@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./component/home/Home";
-import Rating from "./component/rating/Rating";
+
 import MyAccount from "./component/account/MyAccount";
 import Notification from "./component/notification/Notification";
 import Login from "./component/login/Login";
@@ -15,6 +15,7 @@ import Order from "./component/order/Order";
 import Kundali from "./component/kundali/Kundali";
 import MatchKundali from "./component/kundali/MatchKundali";
 import NoPage from "./component/nopage/NoPage";
+import AstroAccount from "./component/account/AstroAccount";
 
 import MyProvider from "./context/MyProvider";
 
@@ -22,8 +23,8 @@ const App = () => {
   const router = createBrowserRouter([
     { path: "/", element: <Home /> },
     { path: "/*", element: <NoPage /> },
-    { path: "/rating", element: <Rating /> },
     { path: "/account", element: <MyAccount /> },
+    { path: "/astro-account", element: <AstroAccount /> },
     { path: "/notification", element: <Notification /> },
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <SignUp /> },

@@ -1,17 +1,52 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { useNavigate } from "react-router";
 import MyContext from "../../context/MyContext";
+import { message } from "antd";
 
 const Astrologers = () => {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [loading, setLoading] = useState(false);
 
   const { astrologer } = useContext(MyContext);
+
+  const HandleCall = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + `api/users/sendRequest`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.access_token}`,
+          },
+          body: JSON.stringify({}),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error Updating Astro Profile!");
+      }
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        message.success("ProfileUpdated Successfully!");
+      } else {
+        message.error("Something went wrong");
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error(error.message);
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="px-2 md:px-12 lg:px-20 pb-20">
       <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* section 1 */}
         {astrologer.map((astro) => (
           <section
             className="h-36 w-full mx-auto rounded-md flex"
@@ -113,7 +148,8 @@ const Astrologers = () => {
 
             <div className="right-div flex flex-col">
               <button
-                type="submit"
+                type="button"
+                onClick={() => HandleCall(astro.id)}
                 className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border rounded-lg px-6 py-1"
               >
                 Call

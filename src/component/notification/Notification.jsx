@@ -1,6 +1,5 @@
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
-import React from "react";
 import Layout from "../layout/Layout";
 import { useNavigate } from "react-router";
 
@@ -8,7 +7,7 @@ const Notification = () => {
   const navigate = useNavigate();
   return (
     <Layout>
-      <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20  text-center p-2 text-white bg-pink-700">
+      <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20  text-center p-2 text-white bg-[#fbb62e]">
         <Breadcrumb
           className="text-gray-50 "
           separator={<span style={{ color: "white" }}>&gt;</span>}

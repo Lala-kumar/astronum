@@ -1,6 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
-import React, { useState } from "react";
+import { useState } from "react";
 import Layout from "../layout/Layout";
 import { useNavigate } from "react-router";
 import kundali from "../../assets/kundali.jpg";
@@ -130,9 +131,9 @@ const Kundali = () => {
   };
 
   return (
-    <div className="bg-pink-50">
+    <div className="">
       <Layout>
-        <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20 text-center p-2 text-white bg-pink-700">
+        <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20 text-center p-2 text-white bg-[#fbb62e]">
           <Breadcrumb
             className="text-gray-50"
             separator={<span style={{ color: "white" }}>&gt;</span>}
@@ -159,9 +160,9 @@ const Kundali = () => {
               <p className="text-xl opacity-80">
                 {" "}
                 GENERATE YOUR FREE{" "}
-                <span className="text-pink-500">JANAM KUNDALI</span>
+                <span className="text-amber-500">JANAM KUNDALI</span>
               </p>
-              <p className="w-36 h-[2px] bg-pink-600 m-2 "></p>
+              <p className="w-36 h-[2px] bg-amber-600 m-2 "></p>
             </section>
 
             <section className="flex flex-col md:flex-row lg:flex-row mb-6 justify-center items-center">
@@ -338,7 +339,7 @@ const Kundali = () => {
               </div>
               <button
                 type="submit"
-                className="bg-rose-500 w-full text-white py-2 px-4 rounded-full hover:bg-rose-600 focus:outline-none"
+                className="bg-amber-500 w-full text-white py-2 px-4 rounded-full hover:bg-amber-600 focus:outline-none"
               >
                 Generate Kundli
               </button>
@@ -349,7 +350,7 @@ const Kundali = () => {
               {" "}
               WHAT JANAM KUNDALI ACTUALLY IS{" "}
             </p>
-            <p className="w-36 h-[2px] bg-pink-600 m-2 mb-6 "></p>
+            <p className="w-36 h-[2px] bg-amber-600 m-2 mb-6 "></p>
 
             <div className="text-justify">
               <p>
@@ -400,7 +401,6 @@ const Kundali = () => {
       </Layout>
     </div>
   );
-  F;
 };
 
 export default Kundali;

@@ -37,11 +37,12 @@ const App = () => {
 
       if (data.status === "success") {
         message.success("Login Successfull!");
+        handleCancel();
       } else {
         message.error("Login Failed!");
       }
 
-      localStorage.setItem("token", JSON.stringify(data));
+      localStorage.setItem("astro", JSON.stringify(data));
       setConfirmLoading(false);
     } catch (error) {
       console.error(error.message);

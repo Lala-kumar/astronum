@@ -41,7 +41,7 @@ const Login = () => {
         message.error("Login Failed!");
       }
 
-      localStorage.setItem("token", JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify(data));
       setFormData(initialData);
       setLoading(false);
     } catch (error) {

@@ -42,9 +42,9 @@ const MatchKundali = () => {
   };
 
   return (
-    <div className="bg-pink-50">
+    <div className="">
       <Layout>
-        <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20 text-center p-2 text-white bg-pink-700">
+        <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20 text-center p-2 text-white bg-[#fbb62e]">
           <Breadcrumb
             className="text-gray-50"
             separator={<span style={{ color: "white" }}>&gt;</span>}
@@ -71,7 +71,7 @@ const MatchKundali = () => {
               <p className="text-xl opacity-80">
                 KUNDALI MATCHING FOR MARRIEGE
               </p>
-              <p className="w-36 h-[2px] bg-pink-600 m-2 "></p>
+              <p className="w-36 h-[2px] bg-amber-600 m-2 "></p>
             </section>
 
             <section className="mb-6">
@@ -102,7 +102,7 @@ const MatchKundali = () => {
             <div className="max-w-md pb-5 bg-white md:max-w-4xl flex  justify-center md:justify-end gap-3 mx-auto">
               <button
                 type="button"
-                className="bg-rose-500 w-40 text-white py-2 px-4 rounded-full hover:bg-rose-600 focus:outline-none"
+                className="bg-amber-500 w-40 text-white py-2 px-4 rounded-full hover:bg-amber-600 focus:outline-none"
                 onClick={handleGenerateKundli}
               >
                 Reset
@@ -110,7 +110,7 @@ const MatchKundali = () => {
               <button
                 style={{ boxShadow: "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px" }}
                 type="button"
-                className="bg-rose-500 w-40 text-white py-2 px-4 rounded-full hover:bg-rose-600 focus:outline-none"
+                className="bg-amber-500 w-40 text-white py-2 px-4 rounded-full hover:bg-amber-600 focus:outline-none"
                 onClick={handleGenerateKundli}
               >
                 Generate Kundli

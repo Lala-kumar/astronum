@@ -277,7 +277,7 @@ const AstroRegister = () => {
   return (
     <Layout>
       <div className="h-full">
-        <h1 className="font-bold mb-6 mx-auto text-center p-2 text-white bg-pink-700">
+        <h1 className="font-bold mb-6 mx-auto text-center p-2 text-white bg-[#fbb62e]">
           <Breadcrumb
             className="text-gray-50 "
             separator={<span style={{ color: "white" }}>&gt;</span>}
