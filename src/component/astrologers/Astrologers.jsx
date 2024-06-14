@@ -3,6 +3,8 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import MyContext from "../../context/MyContext";
 import { message } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import pic from "../../assets/callprofile.png";
 
 const Astrologers = () => {
   const navigate = useNavigate();
@@ -11,36 +13,41 @@ const Astrologers = () => {
 
   const { astrologer } = useContext(MyContext);
 
-  const HandleCall = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        import.meta.env.VITE_SERVER_URL + `api/users/sendRequest`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${user.access_token}`,
-          },
-          body: JSON.stringify({}),
+  const HandleCall = async (id) => {
+    if (user) {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          import.meta.env.VITE_SERVER_URL + `api/users/sendRequest`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user.access_token}`,
+            },
+            body: JSON.stringify({ astroid: id, id: user.userId }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error Calling!");
         }
-      );
 
-      if (!response.ok) {
-        throw new Error("Error Updating Astro Profile!");
+        const data = await response.json();
+        console.log(data);
+
+        if (data.status === "success") {
+          message.success("Request sent!");
+        } else {
+          message.error("Something went wrong");
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error(error.message);
+        setLoading(false);
       }
-
-      const data = await response.json();
-
-      if (data.status === "success") {
-        message.success("ProfileUpdated Successfully!");
-      } else {
-        message.error("Something went wrong");
-      }
-      setLoading(false);
-    } catch (error) {
-      console.error(error.message);
-      setLoading(false);
+    } else {
+      navigate("/login");
     }
   };
 
@@ -55,7 +62,11 @@ const Astrologers = () => {
           >
             <div className="m-1">
               <img
-                src={import.meta.env.VITE_SERVER_URL + `${astro.image}`}
+                src={
+                  astro.image
+                    ? import.meta.env.VITE_SERVER_URL + `images/${astro.image}`
+                    : pic
+                }
                 alt="image"
                 className="rounded-full w-20 h-20 m-1 object-cover object-center"
               />
@@ -147,13 +158,23 @@ const Astrologers = () => {
             </div>
 
             <div className="right-div flex flex-col">
-              <button
-                type="button"
-                onClick={() => HandleCall(astro.id)}
-                className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border rounded-lg px-6 py-1"
-              >
-                Call
-              </button>
+              {loading ? (
+                <button
+                  disabled
+                  className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border rounded-lg px-6 py-1"
+                >
+                  <LoadingOutlined />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => HandleCall(astro.id)}
+                  className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border rounded-lg px-6 py-1"
+                >
+                  Call
+                </button>
+              )}
+
               <h4 className="mb-8"></h4>
             </div>
           </section>

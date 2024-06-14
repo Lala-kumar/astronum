@@ -119,7 +119,7 @@ const MyAccount = () => {
       );
 
       const data = await response.json();
-      console.log(data);
+ 
       if (data?.status === "success") {
         message.success("Profile Updated Successfully!");
       } else {
@@ -155,7 +155,7 @@ const MyAccount = () => {
       );
 
       const data = await response.json();
-      console.log(data);
+     
       if (data?.status === "success") {
         message.success("Password Updated Successfully!");
         HandleClear();

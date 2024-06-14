@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { RxCross2 } from "react-icons/rx";
 import { Avatar, Popover } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, BellOutlined } from "@ant-design/icons";
+
 import logo from "../../assets/astroLogo.png";
 
 const Navbar = () => {
@@ -24,55 +25,103 @@ const Navbar = () => {
 
   const content = (
     <div>
-      <p
-        onClick={() => navigate("/account")}
-        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
-      >
-        My Account
-      </p>
-      <p
-        onClick={() => navigate("/notification")}
-        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
-      >
-        Notification
-      </p>
-      <p
-        onClick={() => navigate("/my-wallet")}
-        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
-      >
-        My Wallet & Transaction
-      </p>
-      <p
-        onClick={() => navigate("/order")}
-        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
-      >
-        Orders
-      </p>
-      <p
-        onClick={HandleLogout}
-        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
-      >
-        Logout
-      </p>
+      <section>
+        {user?.status === "success" ? (
+          <>
+            <p
+              onClick={() => navigate("/account")}
+              className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+            >
+              My Account
+            </p>
+            <p
+              onClick={() => navigate("/notification")}
+              className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+            >
+              Notification
+            </p>
+            <p
+              onClick={() => navigate("/my-wallet")}
+              className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+            >
+              My Wallet & Transaction
+            </p>
+            <p
+              onClick={() => navigate("/call-history")}
+              className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+            >
+              Call History
+            </p>
+            <p
+              onClick={() => navigate("/order")}
+              className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+            >
+              Orders
+            </p>
+            <p
+              onClick={HandleLogout}
+              className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+            >
+              Logout
+            </p>
+          </>
+        ) : astro?.status === "success" ? (
+          <>
+            <p
+              onClick={() => navigate("/astro-account")}
+              className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+            >
+              My Account
+            </p>
+            <p
+              onClick={() => navigate("/consultation-request")}
+              className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+            >
+              Consultation Request
+            </p>
+            <p
+              onClick={() => navigate("/notification")}
+              className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+            >
+              Notification
+            </p>
+            <p
+              onClick={HandleLogout}
+              className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+            >
+              Logout
+            </p>
+          </>
+        ) : (
+          <>
+            <p
+              onClick={() => navigate("/login")}
+              className="font-bold opacity-60 hover:opacity-100 px-5 hover:cursor-pointer"
+            >
+              Login
+            </p>
+          </>
+        )}
+      </section>
     </div>
   );
 
-  const AstroContent = (
-    <div>
-      <p
-        onClick={() => navigate("/astro-account")}
-        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
-      >
-        My Account
-      </p>
-      <p
-        onClick={HandleLogout}
-        className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
-      >
-        Logout
-      </p>
-    </div>
-  );
+  // const AstroContent = (
+  //   <div>
+  //     <p
+  //       onClick={() => navigate("/astro-account")}
+  //       className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+  //     >
+  //       My Account
+  //     </p>
+  //     <p
+  //       onClick={HandleLogout}
+  //       className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
+  //     >
+  //       Logout
+  //     </p>
+  //   </div>
+  // );
 
   return (
     <Fragment>
@@ -155,15 +204,6 @@ const Navbar = () => {
                         Kundali Matching
                       </Link>
                     </div>
-
-                    <div className="flow-root">
-                      <Link
-                        to={"/login"}
-                        className="-m-2 block p-2 font-medium text-gray-900 "
-                      >
-                        Login
-                      </Link>
-                    </div>
                   </section>
                 </Dialog.Panel>
               </Transition.Child>
@@ -173,10 +213,6 @@ const Navbar = () => {
 
         {/* for desktop  */}
         <header className="relative bg-gray-100 ">
-          {/* <p className="flex h-10 items-center justify-center bg-orange-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-            Free kundali
-          </p> */}
-
           <nav aria-label="Top" className=" px-4 sm:px-6 lg:px-8 shadow-xl ">
             <section className="flex h-16 items-center ">
               <button
@@ -206,10 +242,10 @@ const Navbar = () => {
                 <Link to={"/"} className="flex">
                   <div className="flex items-center">
                     <h1 className=" text-2xl font-bold text-gray-600 px-2 py-1 rounded">
-                      <img src={logo} alt="Astronum" className="h-12 w-12" />
+                      <img src={logo} alt="Aastronum" className="h-12 w-12" />
                     </h1>
                     <div>
-                      <p className="font-bold text-xl">Astronum</p>
+                      <p className="font-bold text-xl">Aastronum</p>
                     </div>
                   </div>
                 </Link>
@@ -241,32 +277,24 @@ const Navbar = () => {
                   >
                     Kundali Matching
                   </Link>
-
-                  <Link
-                    to={"/login"}
-                    className="text-sm font-medium text-gray-700 "
-                  >
-                    Login
-                  </Link>
                 </div>
 
                 {/* Admin */}
 
-                {user?.status === "success" && (
-                  <div className="ml-4 flow-root lg:ml-6 hover:cursor-pointer">
-                    <Popover placement="topRight" content={content}>
-                      <Avatar icon={<UserOutlined />} />
-                    </Popover>
-                  </div>
-                )}
+                <div className="ml-4 flex gap-2 lg:ml-6 hover:cursor-pointer">
+                  <Avatar
+                    style={{
+                      backgroundColor: "#fde3cf",
+                      color: "#f56a00",
+                    }}
+                    icon={<BellOutlined />}
+                    onClick={() => navigate("/notification")}
+                  />
 
-                {astro?.type === "Astro" && (
-                  <div className="ml-4 flow-root lg:ml-6 hover:cursor-pointer">
-                    <Popover placement="topRight" content={AstroContent}>
-                      <Avatar icon={<UserOutlined />} />
-                    </Popover>
-                  </div>
-                )}
+                  <Popover placement="topRight" content={content}>
+                    <Avatar icon={<UserOutlined />} />
+                  </Popover>
+                </div>
               </div>
             </section>
           </nav>

@@ -85,7 +85,7 @@ const Kundali = () => {
   const [formData, setFormData] = useState(initialData);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, checked } = e.target;
     // console.log(name, value, type, checked);
     if (name === "day" || name === "month" || name === "year") {
       setFormData({
@@ -162,7 +162,7 @@ const Kundali = () => {
                 GENERATE YOUR FREE{" "}
                 <span className="text-amber-500">JANAM KUNDALI</span>
               </p>
-              <p className="w-36 h-[2px] bg-amber-600 m-2 "></p>
+              <p className="w-36 h-[2px] bg-amber-400 m-2 "></p>
             </section>
 
             <section className="flex flex-col md:flex-row lg:flex-row mb-6 justify-center items-center">
@@ -350,7 +350,7 @@ const Kundali = () => {
               {" "}
               WHAT JANAM KUNDALI ACTUALLY IS{" "}
             </p>
-            <p className="w-36 h-[2px] bg-amber-600 m-2 mb-6 "></p>
+            <p className="w-36 h-[2px] bg-amber-400 m-2 mb-6 "></p>
 
             <div className="text-justify">
               <p>

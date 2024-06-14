@@ -71,7 +71,7 @@ const MatchKundali = () => {
               <p className="text-xl opacity-80">
                 KUNDALI MATCHING FOR MARRIEGE
               </p>
-              <p className="w-36 h-[2px] bg-amber-600 m-2 "></p>
+              <p className="w-36 h-[2px] bg-amber-400 m-2 "></p>
             </section>
 
             <section className="mb-6">

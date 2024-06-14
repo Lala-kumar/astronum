@@ -174,7 +174,7 @@ const AstroAccount = () => {
       }
 
       const data = await response.json();
-      console.log(data.data);
+   
       if (data.status === "success") {
         const profileData = data.data;
         setFormData({

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal, message } from "antd";
+import { useNavigate } from "react-router";
 
 const App = () => {
   const [open, setOpen] = useState(false);
@@ -7,6 +8,8 @@ const App = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
+
+ const navigate = useNavigate()
 
   const showModal = () => {
     setOpen(true);
@@ -33,11 +36,13 @@ const App = () => {
       );
 
       const data = await response.json();
-      console.log(data);
+   
 
       if (data.status === "success") {
         message.success("Login Successfull!");
         handleCancel();
+        navigate("/")
+
       } else {
         message.error("Login Failed!");
       }
@@ -81,7 +86,7 @@ const App = () => {
           confirmLoading={confirmLoading}
           onCancel={handleCancel}
         >
-          <p className=" p-2 text-center font-bold text-gray-700 text-xl my-5 bg-gray-100 rounded-md">
+          <p className=" p-2 text-center font-bold text-gray-700 text-xl my-5 bg-amber-100 rounded-md">
             Astrologer Login
           </p>
 
@@ -122,9 +127,9 @@ const App = () => {
           </div>
 
           <div className="mt-2 text-right">
-            <a href="#" className="text-blue-500 hover:underline">
+            <div  className="text-blue-500 hover:underline">
               Forgot Password?
-            </a>
+            </div>
           </div>
         </Modal>
       </div>

@@ -174,7 +174,7 @@ export default function SignUp() {
               <div className="pb-2">
                 <label htmlFor="username" className="block">
                   <input
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="username"
                     name="username"
                     type="text"
@@ -189,7 +189,7 @@ export default function SignUp() {
               <div className="pb-2">
                 <label htmlFor="mobilenumber" className="block ">
                   <input
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="mobilenumber"
                     name="mobilenumber"
                     type="text"
@@ -206,7 +206,7 @@ export default function SignUp() {
               <div className="pb-2">
                 <label htmlFor="address" className="block ">
                   <input
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="address"
                     name="address"
                     type="text"
@@ -221,7 +221,7 @@ export default function SignUp() {
               <div className="pb-2">
                 <label htmlFor="email" className="block ">
                   <input
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="email"
                     name="email"
                     type="email"
@@ -236,7 +236,7 @@ export default function SignUp() {
               <div className="pb-2">
                 <label htmlFor="password" className="block ">
                   <input
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="password"
                     name="password"
                     type="password"
@@ -251,7 +251,7 @@ export default function SignUp() {
               <div className="pb-2">
                 <label htmlFor="confirmPassword" className="block ">
                   <input
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     id="confirmPassword"
                     name="confirmPassword"
                     type="password"
@@ -269,7 +269,7 @@ export default function SignUp() {
                 <button
                   onClick={HandleClear}
                   type="button"
-                  className="w-full  bg-pink-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                  className="w-full  bg-amber-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-amber-500 uppercase mb-4 lg:mb-0"
                 >
                   Clear
                 </button>
@@ -277,14 +277,14 @@ export default function SignUp() {
                 {loading ? (
                   <button
                     disabled
-                    className="w-full cursor-not-allowed bg-pink-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                    className="w-full cursor-not-allowed bg-amber-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-amber-500 uppercase mb-4 lg:mb-0"
                   >
                     <LoadingOutlined />
                   </button>
                 ) : (
                   <button
                     type="submit"
-                    className="w-full  bg-pink-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                    className="w-full  bg-amber-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-amber-500 uppercase mb-4 lg:mb-0"
                   >
                     Sign-up
                   </button>
@@ -294,7 +294,7 @@ export default function SignUp() {
                 <span>Do you already have an account?</span>
                 <Link
                   to={"/login"}
-                  className="text-pink-500 hover:text-pink-600 transition duration-200 ease-in-out"
+                  className="text-amber-500 hover:text-amber-600 transition duration-200 ease-in-out"
                 >
                   <span>Log-In</span>
                 </Link>

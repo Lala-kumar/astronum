@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import Layout from "../layout/Layout";
 import loginSvg from "../../assets/login.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { message } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -13,6 +13,7 @@ const Login = () => {
   };
   const [formData, setFormData] = useState(initialData);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const HandleChange = (e) => {
     const { name, value } = e.target;
@@ -37,6 +38,7 @@ const Login = () => {
 
       if (data.status === "success") {
         message.success("Login Successfull!");
+        navigate("/");
       } else {
         message.error("Login Failed!");
       }
@@ -67,7 +69,7 @@ const Login = () => {
             <form className="max-w-md mx-auto" onSubmit={HandleSubmit}>
               <label htmlFor="email" className="block mb-4">
                 <input
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                   id="email"
                   name="email"
                   type="email"
@@ -80,7 +82,7 @@ const Login = () => {
 
               <label htmlFor="password" className="block mb-4">
                 <input
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-pink-400"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                   id="password"
                   name="password"
                   type="password"
@@ -93,7 +95,7 @@ const Login = () => {
 
               <a
                 href="#"
-                className="block text-sm text-neutral-600 hover:text-pink-400 mb-6 "
+                className="block text-sm text-neutral-600 hover:text-amber-400 mb-6 "
               >
                 Forgot password?
               </a>
@@ -102,14 +104,14 @@ const Login = () => {
                 {loading ? (
                   <button
                     disabled
-                    className="w-full cursor-not-allowed bg-pink-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                    className="w-full cursor-not-allowed bg-amber-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-amber-500 uppercase mb-4 lg:mb-0"
                   >
                     <LoadingOutlined />
                   </button>
                 ) : (
                   <button
                     type="submit"
-                    className="w-full  bg-pink-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-pink-500 uppercase mb-4 lg:mb-0"
+                    className="w-full  bg-amber-400 text-white py-2 px-6 rounded-md shadow-md hover:bg-amber-500 uppercase mb-4 lg:mb-0"
                   >
                     Login
                   </button>
@@ -119,7 +121,7 @@ const Login = () => {
                   Don't have an account?{" "}
                   <Link
                     to={"/signup"}
-                    className="text-pink-500 hover:text-pink-600 transition duration-200 ease-in-out"
+                    className="text-amber-500 hover:text-amber-600 transition duration-200 ease-in-out"
                   >
                     <span>Register</span>
                   </Link>

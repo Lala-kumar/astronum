@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Link } from "react-router-dom";
 import AstroLogin from "../astrologers/AstroLogin";
 
@@ -6,55 +7,9 @@ const Footer = () => {
     <footer className="text-gray-50 body-font bg-zinc-600">
       <section className="container px-5 pt-6  mx-auto">
         <div className="flex flex-wrap mx-auto order-first">
-          {/* important links */}
+          {/*  ASTROLOGER */}
 
           <section className="lg:w-1/4 md:w-1/2  sm:w-1/2  px-4">
-            <h2 className="title-font font-bold tracking-widest text-sm mb-3">
-              IMPORTANT LINKS
-            </h2>
-            <hr />
-
-            <nav className="list-none mb-10 my-4">
-              <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400 ">
-                  Planetary Position
-                </Link>
-              </li>
-
-              <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  Live Astrologer
-                </Link>
-              </li>
-
-              <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  Kundali Matching
-                </Link>
-              </li>
-
-              <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  Free Kundali
-                </Link>
-              </li>
-              <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  Talk to Astrologer
-                </Link>
-              </li>
-              <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  Numerology
-                </Link>
-              </li>
-              <li className="mb-3">
-                <Link to="/notification" className="text-gray-50 hover:text-gray-400">
-                  Notification
-                </Link>
-              </li>
-            </nav>
-
             <h2 className="title-font font-bold tracking-widest text-sm mb-3">
               ASTROLOGER
             </h2>
@@ -125,49 +80,51 @@ const Footer = () => {
             </nav>
           </section>
 
-          {/* shubh muhurat */}
+          {/* IMPORTANT LINKS */}
 
           <section className="lg:w-1/4 md:w-1/2 sm:w-1/2   px-4">
             <h2 className="title-font font-bold tracking-widest text-sm mb-3">
-              SHUBH MUHURAT 2024
+              IMPORTANT LINKS
             </h2>
             <hr />
 
             <nav className="list-none mb-10 my-4">
               <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  Car/Bike Muhurat 2024
+                <Link to="/" className="text-gray-50 hover:text-gray-400 ">
+                  Talk to Astrologer
                 </Link>
               </li>
+
               <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  Naamkaran Muhurat 2024
+                <Link
+                  to="/match-kundali"
+                  className="text-gray-50 hover:text-gray-400"
+                >
+                  Match Kundali
                 </Link>
               </li>
+
               <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  Marriege Muhurat 2024
+                <Link
+                  to="/kundali"
+                  className="text-gray-50 hover:text-gray-400"
+                >
+                  Free Kundali
                 </Link>
               </li>
+
               <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  Bhoomi Puajan Muhurat 2024
-                </Link>
-              </li>
-              <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  Mundan Muhurat 2024
-                </Link>
-              </li>
-              <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  Griha Muhurat 2024
+                <Link
+                  to="/notification"
+                  className="text-gray-50 hover:text-gray-400"
+                >
+                  Notification
                 </Link>
               </li>
             </nav>
           </section>
 
-          {/* contact us */}
+          {/* contact us &  ABOUT */}
 
           <section className="lg:w-1/4 md:w-1/2 sm:w-1/2   px-4">
             <h2 className="title-font font-bold tracking-widest text-sm mb-3">
@@ -186,11 +143,7 @@ const Footer = () => {
                   Terms & Condition
                 </Link>
               </li>
-              <li className="mb-3">
-                <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  About
-                </Link>
-              </li>
+
               <li className="mb-3">
                 <Link to="/" className="text-gray-50 hover:text-gray-400">
                   About Us
@@ -206,12 +159,12 @@ const Footer = () => {
             <nav className="list-none mb-10 my-4">
               <li className="mb-3">
                 <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  ✉ astronum@gmail.com
+                  ✉ aastronum@gmail.com
                 </Link>
               </li>
               <li className="mb-3">
                 <Link to="/" className="text-gray-50 hover:text-gray-400">
-                  ☏ +91 9876543210
+                  ☏ +91 012 - 345 - 6789
                 </Link>
               </li>
             </nav>
@@ -224,7 +177,9 @@ const Footer = () => {
       <section className="bg-black text-white">
         <div className="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
           <div className="flex ">
-            <h1 className=" text-2xl font-bold  px-2 py-1 rounded">Astronum</h1>
+            <h1 className=" text-2xl font-bold  px-2 py-1 rounded">
+              Aastronum
+            </h1>
           </div>
           <p className="text-sm text-white sm:ml-6 sm:mt-0 mt-4">
             © 2024 All Right Reserved ( Maintained By Ayodhya Websoft Pvt Ltd )

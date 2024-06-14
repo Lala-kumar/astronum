@@ -1,12 +1,45 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import MyContext from "./MyContext";
 
 const MyProvider = ({ children }) => {
-  const [user, setUser] = useState();
+  const [userData, setUserData] = useState();
   const [astrologer, setAstrologer] = useState([]);
   const [allSpecialization, setAllSpecialization] = useState([]);
   const [allLanguage, setAllLanguage] = useState([]);
+  const [notification, setNotification] = useState([]);
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  // ********************** All Notification Section  **********************
+
+  const fetchNotification = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + "api/users/viewacceptrequest",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.access_token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error Fetching All Astrologer!");
+      }
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        setNotification(data.data);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   // ********************** All Astrologers Section  **********************
   const fetchAllAstrologers = async () => {
@@ -83,13 +116,17 @@ const MyProvider = ({ children }) => {
     fetchAllAstrologers();
     fetchAllSpecialization();
     fetchAllLanguage();
+
+    if (user) {
+      fetchNotification();
+    }
   }, []);
 
   return (
     <MyContext.Provider
       value={{
-        user,
-        setUser,
+        userData,
+        setUserData,
         astrologer,
         setAstrologer,
         allSpecialization,
@@ -97,6 +134,8 @@ const MyProvider = ({ children }) => {
         allLanguage,
         setAllLanguage,
         ReloadAllAstro,
+        notification,
+        setNotification,
       }}
     >
       {children}
