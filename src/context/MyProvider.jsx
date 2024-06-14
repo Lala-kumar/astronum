@@ -9,11 +9,23 @@ const MyProvider = ({ children }) => {
   const [allSpecialization, setAllSpecialization] = useState([]);
   const [allLanguage, setAllLanguage] = useState([]);
   const [notification, setNotification] = useState([]);
+  const [availabilityStatus, setAvailabilityStatus] = useState([]);
+  const [transaction, setTransaction] = useState([]);
+  const [selectedSpecialization, setSelectedSpecialization] = useState("");
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  // ********************** All Notification Section  **********************
+  const login = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("astro");
+  };
 
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("astro");
+  };
+
+  // ********************** All Notification Section  **********************
   const fetchNotification = async () => {
     try {
       const response = await fetch(
@@ -24,6 +36,7 @@ const MyProvider = ({ children }) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${user?.access_token}`,
           },
+          body: JSON.stringify({ userID: user?.userID }),
         }
       );
 
@@ -43,14 +56,19 @@ const MyProvider = ({ children }) => {
 
   // ********************** All Astrologers Section  **********************
   const fetchAllAstrologers = async () => {
+    let url = import.meta.env.VITE_SERVER_URL + "api/users/searchAstro";
+
+    if (selectedSpecialization !== "") {
+      url =
+        import.meta.env.VITE_SERVER_URL +
+        `api/users/searchAstro/${selectedSpecialization}`;
+    }
+
     try {
-      const response = await fetch(
-        import.meta.env.VITE_SERVER_URL + "api/users/searchAstro",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (!response.ok) {
         throw new Error("Error Fetching All Astrologer!");
@@ -108,18 +126,83 @@ const MyProvider = ({ children }) => {
     }
   };
 
+  // ********************** Availability Status Section  **********************
+  const checkStatus = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + `api/users/checkOnline`
+      );
+
+      if (!response.ok) {
+        throw new Error("Error Getting Availability Status!");
+      }
+
+      const data = await response.json();
+      setAvailabilityStatus(data.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  // ********************** Transaction Section  **********************
+  const fetchTransaction = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + "api/users/wallethistroy",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.access_token}`,
+          },
+          body: JSON.stringify({ userId: user?.userID }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error Fetching All Transaction!");
+      }
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        setTransaction(data.data);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const ReloadAllAstro = () => {
     fetchAllAstrologers();
+  };
+
+  const ReloadTransaction = () => {
+    fetchTransaction();
   };
 
   useEffect(() => {
     fetchAllAstrologers();
     fetchAllSpecialization();
     fetchAllLanguage();
+    checkStatus();
+  }, []);
 
-    if (user) {
-      fetchNotification();
-    }
+  useEffect(() => {
+    fetchAllAstrologers();
+  }, [selectedSpecialization]);
+
+  useEffect(() => {
+    fetchNotification();
+    fetchTransaction();
+  }, [user?.status === "success"]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkStatus();
+    }, 3 * 60 * 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -136,6 +219,15 @@ const MyProvider = ({ children }) => {
         ReloadAllAstro,
         notification,
         setNotification,
+        login,
+        logout,
+        availabilityStatus,
+        setAvailabilityStatus,
+        transaction,
+        setTransaction,
+        ReloadTransaction,
+        selectedSpecialization,
+        setSelectedSpecialization,
       }}
     >
       {children}

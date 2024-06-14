@@ -3,20 +3,48 @@
 import Layout from "../layout/Layout";
 import { FaStar } from "react-icons/fa6";
 import AstroAvailable from "./AstroAvailable";
-import { Divider } from "antd";
+import { Divider, message } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
+import image from "../../assets/callprofile.png";
+import { LoadingOutlined } from "@ant-design/icons";
 
+const user = JSON.parse(localStorage.getItem("user"));
 const AstroDetails = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [astro, setAstro] = useState([]);
   const [specialization, setSpecialization] = useState([]);
+  const [isOnline, setIsOnline] = useState("");
 
   const { id } = useParams();
 
+  // ********************** Fetch Status Section  **********************
+  const fetchStatus = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + `api/users/checkAstroOnline`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.access_token}`,
+          },
+          body: JSON.stringify({ astroId: id }),
+        }
+      );
+
+      const data = await response.json();
+
+      setIsOnline(data.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+  // ********************** Astro Details Section  **********************
   const fetchAstroDetails = async () => {
     try {
       const response = await fetch(
@@ -36,9 +64,47 @@ const AstroDetails = () => {
       console.error(error.message);
     }
   };
+  // ********************** Handle Call Section  **********************
+  const HandleCall = async (id) => {
+    if (user) {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          import.meta.env.VITE_SERVER_URL + `api/users/sendRequest`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${user.access_token}`,
+            },
+            body: JSON.stringify({ astroid: id, id: user.userId }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error Calling!");
+        }
+
+        const data = await response.json();
+
+        if (data.status === "success") {
+          message.success("Request sent Successfully!");
+        } else {
+          message.error("Something went wrong");
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error(error.message);
+        setLoading(false);
+      }
+    } else {
+      navigate("/login");
+    }
+  };
 
   useEffect(() => {
     fetchAstroDetails();
+    fetchStatus();
   }, []);
 
   return (
@@ -69,7 +135,12 @@ const AstroDetails = () => {
             <section className="w-full border border-pink-300 rounded-md mx-auto flex lg:flex-row md:flex-row flex-col sm:flex-col m-4 bg-purple-50">
               <div className="m-1 mx-10">
                 <img
-                  src={import.meta.env.VITE_SERVER_URL + `${astro.image}`}
+                  src={
+                    astro.image
+                      ? import.meta.env.VITE_SERVER_URL +
+                        `images/${astro.image}`
+                      : image
+                  }
                   alt="Astrologer"
                   className="mx-auto border rounded-full h-[200px] w-[200px] m-1 object-cover object-center"
                 />
@@ -97,29 +168,64 @@ const AstroDetails = () => {
               </div>
 
               <div className="flex flex-col mx-10">
-                <section className="m-auto mb-8">
-                  <div className="hover:cursor-pointer hover:bg-green-400 hover:text-white flex border-2 border-green-400 my-auto w-64 h-12 items-center justify-center rounded-full">
-                    <span className="font-semibold opacity-85 hover:text-white">
-                      ACTIVE
-                    </span>
-                  </div>
-                </section>
+                {isOnline === "online" ? (
+                  <>
+                    <section className="m-auto mb-8">
+                      <div className="hover:cursor-pointer hover:bg-green-400 hover:text-white flex border-2 border-green-400 my-auto w-64 h-12 items-center justify-center rounded-full">
+                        <span className="font-semibold opacity-85 hover:text-white">
+                          ACTIVE
+                        </span>
+                      </div>
+                    </section>
 
-                <section className="m-auto mb-8">
-                  <div className="hover:cursor-pointer hover:bg-green-400 hover:text-white flex border-2 border-green-400 my-auto w-64 h-12 items-center justify-center rounded-full">
-                    <div>
-                      <span className="font-bold text-sm opacity-80">Call</span>
-                      <span className="font-bold text-sm opacity-80">Busy</span>
-                    </div>
-                    <div className="mx-4 opacity-90">|</div>
-                    <div>
-                      <span className="text-xs line-through">10/min</span>
-                      <span className="font-bold text-md opacity-80 text-rose-600">
-                        Free
-                      </span>
-                    </div>
-                  </div>
-                </section>
+                    <section className="m-auto mb-8">
+                      <div className="hover:cursor-pointer hover:bg-green-400 hover:text-white flex border-2 border-green-400 my-auto w-64 h-12 items-center justify-center rounded-full">
+                        <div>
+                          <span
+                            onClick={() => HandleCall(astro.id)}
+                            className="font-bold text-sm opacity-80"
+                          >
+                            {loading ? <LoadingOutlined /> : "Call"}
+                          </span>
+                        </div>
+                        <div className="mx-4 opacity-90">|</div>
+                        <div>
+                          <span className="text-xs line-through">10/min</span>
+                          <span className="font-bold text-md opacity-80 text-rose-600">
+                            Free
+                          </span>
+                        </div>
+                      </div>
+                    </section>
+                  </>
+                ) : (
+                  <>
+                    <section className="m-auto mb-8">
+                      <div className="hover:cursor-pointer hover:bg-rose-400 hover:text-white flex border-2 border-rose-400 my-auto w-64 h-12 items-center justify-center rounded-full">
+                        <span className="font-semibold opacity-85 hover:text-white">
+                          Inactive
+                        </span>
+                      </div>
+                    </section>
+
+                    <section className="m-auto mb-8">
+                      <div className="hover:cursor-pointer hover:bg-green-400 hover:text-white flex border-2 border-green-400 my-auto w-64 h-12 items-center justify-center rounded-full">
+                        <div>
+                          <span className="font-bold text-sm opacity-80">
+                            Busy
+                          </span>
+                        </div>
+                        <div className="mx-4 opacity-90">|</div>
+                        <div>
+                          <span className="text-xs line-through">10/min</span>
+                          <span className="font-bold text-md opacity-80 text-rose-600">
+                            Free
+                          </span>
+                        </div>
+                      </div>
+                    </section>
+                  </>
+                )}
               </div>
             </section>
 

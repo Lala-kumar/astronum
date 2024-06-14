@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router";
- 
+
 import { LoadingOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
@@ -35,7 +35,7 @@ const Astrologers = () => {
       }
 
       const data = await response.json();
- 
+
       setRequests(data.data);
 
       setLoading(false);
@@ -68,10 +68,8 @@ const Astrologers = () => {
         throw new Error("Error Calling!");
       }
 
-  
- 
- 
       setLoading(false);
+      fetchCallRequest();
     } catch (error) {
       console.error(error.message);
       setLoading(false);
@@ -148,7 +146,11 @@ const Astrologers = () => {
                       onClick={() => AcceptCall(request.id)}
                       className="mt-24 mr-4 border-green-500 text-green-500 hover:text-white hover:bg-green-500 border-solid border rounded-lg px-6 py-1"
                     >
-                      {request.request_status === "0" ? "Accept" : "Accepted"}
+                      {request.request_status === 0 ? (
+                        <span className="text-red-500">Accept</span>
+                      ) : (
+                        "Accepted"
+                      )}
                     </button>
                   )}
                 </div>

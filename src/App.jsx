@@ -17,7 +17,11 @@ import NoPage from "./component/nopage/NoPage";
 import AstroAccount from "./component/account/AstroAccount";
 import MyProvider from "./context/MyProvider";
 import UserCallHistory from "./component/calling/UserCallHistory";
-import ConsultationRequest from './component/calling/ConsultationRequest'
+import ConsultationRequest from "./component/calling/ConsultationRequest";
+import ActiveStatusAstro from "./component/active status/ActiveStatusAstro";
+import RechargeSuccess from "./component/recharge result/RechargeSuccess";
+
+const astro = JSON.parse(localStorage.getItem("astro"));
 
 const App = () => {
   const router = createBrowserRouter([
@@ -34,6 +38,7 @@ const App = () => {
     { path: "/pooja", element: <Pooja /> },
     { path: "/my-wallet", element: <MyWallet /> },
     { path: "/my-wallet/add-money", element: <AddMoney /> },
+    { path: "/my-wallet/add-money/:id", element: <RechargeSuccess /> },
     { path: "/order", element: <Order /> },
     { path: "/kundali", element: <Kundali /> },
     { path: "/match-kundali", element: <MatchKundali /> },
@@ -44,6 +49,7 @@ const App = () => {
   return (
     <div>
       <MyProvider>
+        {astro && <ActiveStatusAstro />}
         <RouterProvider router={router} />
       </MyProvider>
     </div>

@@ -1,16 +1,19 @@
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { RxCross2 } from "react-icons/rx";
-import { Avatar, Popover } from "antd";
+import { Avatar, Popover, Badge } from "antd";
 import { UserOutlined, BellOutlined } from "@ant-design/icons";
 
 import logo from "../../assets/astroLogo.png";
+import MyContext from "../../context/MyContext";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { notification, logout } = useContext(MyContext);
+  const count = notification.length;
 
   const user = JSON.parse(localStorage.getItem("user"));
   const astro = JSON.parse(localStorage.getItem("astro"));
@@ -18,8 +21,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const HandleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("astro");
+    logout();
     navigate("/");
   };
 
@@ -105,23 +107,6 @@ const Navbar = () => {
       </section>
     </div>
   );
-
-  // const AstroContent = (
-  //   <div>
-  //     <p
-  //       onClick={() => navigate("/astro-account")}
-  //       className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
-  //     >
-  //       My Account
-  //     </p>
-  //     <p
-  //       onClick={HandleLogout}
-  //       className=" font-bold opacity-60 hover:opacity-100 mb-2 hover:cursor-pointer"
-  //     >
-  //       Logout
-  //     </p>
-  //   </div>
-  // );
 
   return (
     <Fragment>
@@ -281,15 +266,17 @@ const Navbar = () => {
 
                 {/* Admin */}
 
-                <div className="ml-4 flex gap-2 lg:ml-6 hover:cursor-pointer">
-                  <Avatar
-                    style={{
-                      backgroundColor: "#fde3cf",
-                      color: "#f56a00",
-                    }}
-                    icon={<BellOutlined />}
-                    onClick={() => navigate("/notification")}
-                  />
+                <div className="ml-4 flex gap-4 lg:ml-6 hover:cursor-pointer">
+                  <Badge count={count}>
+                    <Avatar
+                      style={{
+                        backgroundColor: "#fde3cf",
+                        color: "#f56a00",
+                      }}
+                      icon={<BellOutlined />}
+                      onClick={() => navigate("/notification")}
+                    />
+                  </Badge>
 
                   <Popover placement="topRight" content={content}>
                     <Avatar icon={<UserOutlined />} />

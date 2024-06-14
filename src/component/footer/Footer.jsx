@@ -182,7 +182,7 @@ const Footer = () => {
             </h1>
           </div>
           <p className="text-sm text-white sm:ml-6 sm:mt-0 mt-4">
-            © 2024 All Right Reserved ( Maintained By Ayodhya Websoft Pvt Ltd )
+          © Copyright 2024. All rights reserved. Aastronum. Website Design & Promoted by Ayodhya Webosoft Private Limited
           </p>
 
           {/* social media */}

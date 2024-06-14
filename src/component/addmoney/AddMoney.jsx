@@ -1,10 +1,49 @@
 import { HomeOutlined } from "@ant-design/icons";
-import { Breadcrumb } from "antd";
+import { Breadcrumb, message } from "antd";
 import Layout from "../layout/Layout";
 import { useNavigate } from "react-router";
+import { useContext } from "react";
+import MyContext from "../../context/MyContext";
+
+const user = JSON.parse(localStorage.getItem("user"));
 
 const MyAccount = () => {
   const navigate = useNavigate();
+  const { ReloadTransaction } = useContext(MyContext);
+
+  // ********************** Recharge Section  **********************
+  const HandleRecharge = async (amount) => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + "api/users/walletRecharge",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.access_token}`,
+          },
+          body: JSON.stringify({ user_id: user?.userID, amount: amount }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error recharge!");
+      }
+
+      const data = await response.json();
+      if (data.status === "success") {
+        message.success("Recharge Successfully!");
+        ReloadTransaction();
+        navigate("/my-wallet/add-money/1");
+      } else {
+        message.error("Recharge Failed");
+        navigate("/my-wallet/add-money/2");
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <>
       <Layout>
@@ -52,18 +91,80 @@ const MyAccount = () => {
 
           {/* add money */}
           <section>
-            <h1 className="my-6 text-lg font-semibold">
-              Popular Recharge
-            </h1>
+            <h1 className="my-6 text-lg font-semibold">Popular Recharge</h1>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-6 mt-1">
-              {[...Array(10)].map((_, index) => (
-                <button
-                  key={index + 1}
-                  className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
-                >
-                  ₹ {index + 1}
-                </button>
-              ))}
+              <button
+                onClick={() => HandleRecharge(25)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 25
+              </button>
+              <button
+                onClick={() => HandleRecharge(50)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 50
+              </button>
+              <button
+                onClick={() => HandleRecharge(100)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 100
+              </button>
+              <button
+                onClick={() => HandleRecharge(200)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 200
+              </button>
+              <button
+                onClick={() => HandleRecharge(500)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 500
+              </button>
+              <button
+                onClick={() => HandleRecharge(1000)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 1000
+              </button>
+              <button
+                onClick={() => HandleRecharge(2000)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 2000
+              </button>
+              <button
+                onClick={() => HandleRecharge(3000)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 3000
+              </button>
+              <button
+                onClick={() => HandleRecharge(4000)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 4000
+              </button>
+              <button
+                onClick={() => HandleRecharge(5000)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 5000
+              </button>
+              <button
+                onClick={() => HandleRecharge(10000)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 10000
+              </button>
+              <button
+                onClick={() => HandleRecharge(20000)}
+                className="bg-green-100 border hover:border hover:border-green-500 text-gray-800 font-semibold py-8 px-4 rounded"
+              >
+                ₹ 20000
+              </button>
             </div>
           </section>
         </main>
