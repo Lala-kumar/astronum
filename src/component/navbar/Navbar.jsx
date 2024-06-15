@@ -267,16 +267,18 @@ const Navbar = () => {
                 {/* Admin */}
 
                 <div className="ml-4 flex gap-4 lg:ml-6 hover:cursor-pointer">
-                  <Badge count={count}>
-                    <Avatar
-                      style={{
-                        backgroundColor: "#fde3cf",
-                        color: "#f56a00",
-                      }}
-                      icon={<BellOutlined />}
-                      onClick={() => navigate("/notification")}
-                    />
-                  </Badge>
+                  {user?.status === "success" && (
+                    <Badge count={count}>
+                      <Avatar
+                        style={{
+                          backgroundColor: "#fde3cf",
+                          color: "#f56a00",
+                        }}
+                        icon={<BellOutlined />}
+                        onClick={() => navigate("/notification")}
+                      />
+                    </Badge>
+                  )}
 
                   <Popover placement="topRight" content={content}>
                     <Avatar icon={<UserOutlined />} />

@@ -14,15 +14,17 @@ const MyProvider = ({ children }) => {
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
 
   const user = JSON.parse(localStorage.getItem("user"));
+  const astro = JSON.parse(localStorage.getItem("astro"));
 
-  const login = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("astro");
+  const login = (userData) => {
+    setUserData(userData);
   };
 
   const logout = () => {
+    setUserData(null);
     localStorage.removeItem("user");
     localStorage.removeItem("astro");
+    fetchNotification();
   };
 
   // ********************** All Notification Section  **********************
@@ -45,8 +47,9 @@ const MyProvider = ({ children }) => {
       }
 
       const data = await response.json();
+      console.log(data.status,"Notification Called");
 
-      if (data.status === "success") {
+      if (data?.status === "success") {
         setNotification(data.data);
       }
     } catch (error) {
@@ -76,7 +79,7 @@ const MyProvider = ({ children }) => {
 
       const data = await response.json();
 
-      if (data.status === "success") {
+      if (data?.status === "success") {
         setAstrologer(data.data);
       }
     } catch (error) {
@@ -164,6 +167,7 @@ const MyProvider = ({ children }) => {
       }
 
       const data = await response.json();
+      console.log(data.status,"Transaction Called");
 
       if (data.status === "success") {
         setTransaction(data.data);
@@ -188,6 +192,10 @@ const MyProvider = ({ children }) => {
     checkStatus();
   }, []);
 
+  const ReloadCheckStatus = () => {
+    checkStatus();
+  };
+
   useEffect(() => {
     fetchAllAstrologers();
   }, [selectedSpecialization]);
@@ -195,6 +203,8 @@ const MyProvider = ({ children }) => {
   useEffect(() => {
     fetchNotification();
     fetchTransaction();
+    console.log(user);
+    console.log("Effect Run");
   }, [user?.status === "success"]);
 
   useEffect(() => {
@@ -228,6 +238,9 @@ const MyProvider = ({ children }) => {
         ReloadTransaction,
         selectedSpecialization,
         setSelectedSpecialization,
+        astro,
+        user,
+        ReloadCheckStatus,
       }}
     >
       {children}

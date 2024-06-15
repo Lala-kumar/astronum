@@ -39,7 +39,7 @@ const Footer = () => {
             </h2>
             <hr />
 
-            <nav className="list-none mb-10 my-4">
+            <nav className="list-none mb-1 my-4">
               <li className="mb-3">
                 <Link to="/" className="text-gray-50 hover:text-gray-400">
                   Horoscope 2024
@@ -126,7 +126,7 @@ const Footer = () => {
 
           {/* contact us &  ABOUT */}
 
-          <section className="lg:w-1/4 md:w-1/2 sm:w-1/2   px-4">
+          <section className="lg:w-1/4 md:w-1/2 sm:w-1/2 px-4">
             <h2 className="title-font font-bold tracking-widest text-sm mb-3">
               ABOUT
             </h2>
@@ -156,7 +156,7 @@ const Footer = () => {
             </h2>
             <hr />
 
-            <nav className="list-none mb-10 my-4">
+            <nav className="list-none mb-1 my-4">
               <li className="mb-3">
                 <Link to="/" className="text-gray-50 hover:text-gray-400">
                   ✉ aastronum@gmail.com
@@ -175,15 +175,15 @@ const Footer = () => {
       {/* links & social median  */}
 
       <section className="bg-black text-white">
-        <div className="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
+        <div className="container px-5 p-3 mx-auto flex items-center sm:flex-row flex-col">
           <div className="flex ">
             <h1 className=" text-2xl font-bold  px-2 py-1 rounded">
               Aastronum
             </h1>
           </div>
-          <p className="text-sm text-white sm:ml-6 sm:mt-0 mt-4">
+          {/* <p className="text-sm text-white sm:ml-6 sm:mt-0 mt-4">
           © Copyright 2024. All rights reserved. Aastronum. Website Design & Promoted by Ayodhya Webosoft Private Limited
-          </p>
+          </p> */}
 
           {/* social media */}
 

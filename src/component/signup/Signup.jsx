@@ -294,7 +294,7 @@ export default function SignUp() {
                 <span>Do you already have an account?</span>
                 <Link
                   to={"/login"}
-                  className="text-amber-500 hover:text-amber-600 transition duration-200 ease-in-out"
+                  className="text-blue-500 hover:text-blue-600 transition duration-200 ease-in-out"
                 >
                   <span>Log-In</span>
                 </Link>

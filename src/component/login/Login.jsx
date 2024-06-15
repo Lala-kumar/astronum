@@ -2,9 +2,10 @@
 import Layout from "../layout/Layout";
 import loginSvg from "../../assets/login.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { message } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import MyContext from "../../context/MyContext";
 
 const Login = () => {
   const initialData = {
@@ -14,6 +15,9 @@ const Login = () => {
   const [formData, setFormData] = useState(initialData);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const { login } = useContext(MyContext);
+ 
 
   const HandleChange = (e) => {
     const { name, value } = e.target;
@@ -38,6 +42,7 @@ const Login = () => {
 
       if (data.status === "success") {
         message.success("Login Successfull!");
+        login(data);
         navigate("/");
       } else {
         message.error("Login Failed!");
@@ -66,6 +71,7 @@ const Login = () => {
           </div>
 
           <div className="w-full sm:max-w-sm mx-5">
+            <h1 className="text-center font-bold pb-2 text-slate-600">Login to Your Account</h1>
             <form className="max-w-md mx-auto" onSubmit={HandleSubmit}>
               <label htmlFor="email" className="block mb-4">
                 <input
@@ -86,6 +92,7 @@ const Login = () => {
                   id="password"
                   name="password"
                   type="password"
+                  autoComplete="on"
                   placeholder="Password"
                   value={formData.password}
                   onChange={HandleChange}
@@ -121,7 +128,7 @@ const Login = () => {
                   Don't have an account?{" "}
                   <Link
                     to={"/signup"}
-                    className="text-amber-500 hover:text-amber-600 transition duration-200 ease-in-out"
+                    className="text-blue-500 hover:text-blue-600 transition duration-200 ease-in-out"
                   >
                     <span>Register</span>
                   </Link>

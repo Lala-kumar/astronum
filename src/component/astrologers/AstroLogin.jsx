@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Modal, message } from "antd";
 import { useNavigate } from "react-router";
+import MyContext from "../../context/MyContext";
 
 const App = () => {
   const [open, setOpen] = useState(false);
@@ -8,8 +9,9 @@ const App = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
+  const { ReloadCheckStatus } = useContext(MyContext);
 
- const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const showModal = () => {
     setOpen(true);
@@ -36,13 +38,12 @@ const App = () => {
       );
 
       const data = await response.json();
-   
 
       if (data.status === "success") {
         message.success("Login Successfull!");
         handleCancel();
-        navigate("/")
-
+        navigate("/");
+        ReloadCheckStatus();
       } else {
         message.error("Login Failed!");
       }
@@ -127,7 +128,7 @@ const App = () => {
           </div>
 
           <div className="mt-2 text-right">
-            <div  className="text-blue-500 hover:underline">
+            <div className="text-blue-500 hover:underline">
               Forgot Password?
             </div>
           </div>

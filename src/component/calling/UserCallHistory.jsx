@@ -27,7 +27,7 @@ const columns = [
 const data = [
   {
     key: "1",
-    name: "John Brown",
+    name: "Joe dean",
     date: "2023-01-01",
     duration: "30 mins",
   },
@@ -45,19 +45,19 @@ const data = [
   },
   {
     key: "4",
-    name: "Joe Black",
+    name: "Astha sharma",
     date: "2023-01-03",
     duration: "25 mins",
   },
   {
     key: "5",
-    name: "Joe Black",
+    name: "Gagan kumar",
     date: "2023-01-03",
     duration: "25 mins",
   },
   {
     key: "6",
-    name: "Joe Black",
+    name: "Sameer teja",
     date: "2023-01-03",
     duration: "25 mins",
   },
@@ -69,7 +69,7 @@ const UserCallHistory = () => {
     <div>
       <Layout>
         <div className="min-h-screen">
-        <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20 text-center p-2 text-white bg-[#fbb62e] mb-5">
+          <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20 text-center p-2 text-white bg-[#fbb62e] mb-5">
             <Breadcrumb
               className="text-gray-50 "
               separator={<span style={{ color: "white" }}>&gt;</span>}

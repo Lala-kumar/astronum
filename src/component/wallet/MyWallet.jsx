@@ -3,7 +3,7 @@ import { Breadcrumb, Table } from "antd";
 import Layout from "../layout/Layout";
 import { useNavigate } from "react-router";
 import { Empty } from "antd";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import MyContext from "../../context/MyContext";
 
 const columns = [
@@ -25,9 +25,12 @@ const columns = [
   },
 ];
 
+const user = JSON.parse(localStorage.getItem("user"));
+
 const MyAccount = () => {
   const navigate = useNavigate();
   const { transaction } = useContext(MyContext);
+  const [transactions, setTransactions] = useState([]);
 
   const data = transaction.map((tx, index) => ({
     key: index,
@@ -36,6 +39,40 @@ const MyAccount = () => {
     amount: tx.amount,
     created_at: tx.created_at,
   }));
+
+  const fetchTransaction = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + "api/users/wallethistroy",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.access_token}`,
+          },
+          body: JSON.stringify({ userId: user?.userID }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error Fetching Transaction Response!");
+      }
+
+      const data = await response.json();
+
+      console.log(data);
+
+      if (data.status === "success") {
+        setTransactions(data.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTransaction();
+  }, []);
 
   return (
     <>
@@ -73,7 +110,7 @@ const MyAccount = () => {
           <h1 className="text-center mt-4 mb-2 font-semibold opacity-85 text-2xl">
             Transactions History
           </h1>
-          {transaction.length === 0 ? (
+          {transactions.length === 0 ? (
             <Empty description={<span>No Transaction yet!</span>}></Empty>
           ) : (
             <Table
