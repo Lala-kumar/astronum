@@ -119,7 +119,7 @@ const MyAccount = () => {
       );
 
       const data = await response.json();
- 
+
       if (data?.status === "success") {
         message.success("Profile Updated Successfully!");
       } else {
@@ -155,7 +155,7 @@ const MyAccount = () => {
       );
 
       const data = await response.json();
-     
+
       if (data?.status === "success") {
         message.success("Password Updated Successfully!");
         HandleClear();
@@ -220,10 +220,10 @@ const MyAccount = () => {
               {/* section left */}
               <div className="w-full sm:max-w-md mx-auto p-3 bg-stone-50 rounded-xl">
                 <form
-                  className="max-w-md mx-auto"
+                  className="max-w-md mx-auto text-zinc-700"
                   onSubmit={HandleBasicFormSubmit}
                 >
-                  <label htmlFor="name" className="block">
+                  <label htmlFor="name" className="block font-semibold ">
                     Full Name :
                   </label>
                   <input
@@ -326,7 +326,7 @@ const MyAccount = () => {
                   </div>
                 </form>
               </div>
-
+              
               {/* section right */}
 
               <div className="w-full sm:max-w-md mx-auto p-3 bg-stone-50 rounded-xl">
@@ -336,7 +336,7 @@ const MyAccount = () => {
                 </h1>
 
                 <form
-                  className="max-w-md mx-auto"
+                  className="max-w-md mx-auto text-zinc-700"
                   onSubmit={HandlePasswordSubmit}
                 >
                   <label htmlFor="current_password" className="block">

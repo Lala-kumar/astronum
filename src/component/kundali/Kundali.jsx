@@ -86,7 +86,7 @@ const Kundali = () => {
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
-    // console.log(name, value, type, checked);
+
     if (name === "day" || name === "month" || name === "year") {
       setFormData({
         ...formData,
@@ -125,8 +125,7 @@ const Kundali = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your logic to generate Kundali using formData
-    console.log(formData);
+
     setFormData(initialData);
   };
 
@@ -158,8 +157,7 @@ const Kundali = () => {
           <div className="container mx-auto py-8 ">
             <section className="font-bold mb-6 flex flex-col text-center p-2 mx-auto rounded-md items-center justify-center ">
               <p className="text-xl opacity-80">
-                {" "}
-                GENERATE YOUR FREE{" "}
+                GENERATE YOUR FREE
                 <span className="text-amber-500">JANAM KUNDALI</span>
               </p>
               <p className="w-36 h-[2px] bg-amber-400 m-2 "></p>
@@ -346,9 +344,8 @@ const Kundali = () => {
             </form>
           </div>
           <section className=" mb-6 flex flex-col p-2 mx-auto rounded-md items-center justify-center ">
-            <p className="text-xl font-bold opacity-80">
-              {" "}
-              WHAT JANAM KUNDALI ACTUALLY IS{" "}
+            <p className="text-xl text-center font-bold opacity-80">
+              WHAT JANAM KUNDALI ACTUALLY IS
             </p>
             <p className="w-36 h-[2px] bg-amber-400 m-2 mb-6 "></p>
 

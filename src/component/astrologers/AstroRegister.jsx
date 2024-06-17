@@ -79,7 +79,7 @@ const AstroRegister = () => {
   return (
     <Layout>
       <div className="h-full">
-        <h1 className="font-bold mb-6 mx-auto text-center p-2 text-white bg-[#fbb62e]">
+        <h1 className="font-bold mb-6  px-4 sm:px-6 md:px-12 lg:px-20 mx-auto text-center p-2 text-white bg-[#fbb62e]">
           <Breadcrumb
             className="text-gray-50 "
             separator={<span style={{ color: "white" }}>&gt;</span>}
@@ -100,10 +100,14 @@ const AstroRegister = () => {
           />
         </h1>
 
-        <main className="mb-5 w-full min-h-screen mx-auto">
+        <main className="mb-5 w-full min-h-screen px-4 sm:px-6 md:px-12 lg:px-20">
           <div className="flex w-full mx-auto flex-col md:flex-row gap-5 justify-evenly items-center">
             <div className="w-full mx-auto">
-              <img src={regestration} alt="login" className="w-[300px] mx-auto" />
+              <img
+                src={regestration}
+                alt="login"
+                className="w-[300px] mx-auto"
+              />
             </div>
 
             <div className="w-full mx-auto">
@@ -161,31 +165,32 @@ const AstroRegister = () => {
                   />
                   <p className="text-red-600  h-5 text-sm">{errors.password}</p>
                 </div>
-                <div className="flex gap-5">
-                  {loading ? (
-                    <button
-                      type="button"
-                      disabled
-                      className="font-semibold py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-700 transition-all duration-300 ease-in-out flex items-center justify-center  w-28"
-                    >
-                      <LoadingOutlined className="py-1" />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={handleSubmit}
-                      className="font-semibold py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-700 transition-all duration-300 ease-in-out flex items-center justify-center  w-28"
-                    >
-                      Sign Up
-                    </button>
-                  )}
+              </div>
+              <div className="w-full px-2 flex gap-5 justify-end">
+                <button
+                  type="button"
+                  onClick={HandleClear}
+                  className="font-semibold py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-700 transition-all duration-300 ease-in-out flex items-center justify-center  w-28"
+                >
+                  Clear
+                </button>
+
+                {loading ? (
                   <button
                     type="button"
-                    onClick={HandleClear}
+                    disabled
                     className="font-semibold py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-700 transition-all duration-300 ease-in-out flex items-center justify-center  w-28"
                   >
-                    Clear
+                    <LoadingOutlined className="py-1" />
                   </button>
-                </div>
+                ) : (
+                  <button
+                    onClick={handleSubmit}
+                    className="font-semibold py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-700 transition-all duration-300 ease-in-out flex items-center justify-center  w-28"
+                  >
+                    Sign Up
+                  </button>
+                )}
               </div>
             </div>
           </div>

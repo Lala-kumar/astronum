@@ -22,7 +22,32 @@ const Navbar = () => {
 
   const HandleLogout = () => {
     logout();
-    navigate("/");
+    const fetchLogout = async () => {
+      try {
+        const response = await fetch(
+          import.meta.env.VITE_SERVER_URL + "api/userlogout",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${
+                user?.access_token ? user?.access_token : astro?.access_token
+              }`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error Logout!");
+        }
+
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+    fetchLogout();
   };
 
   const content = (
@@ -230,7 +255,9 @@ const Navbar = () => {
                       <img src={logo} alt="Aastronum" className="h-12 w-12" />
                     </h1>
                     <div>
-                      <p className="font-bold text-xl">Aastronum</p>
+                      <p className="font-bold sm:block hidden text-xl">
+                        Aastronum
+                      </p>
                     </div>
                   </div>
                 </Link>

@@ -9,7 +9,8 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 const MyAccount = () => {
   const navigate = useNavigate();
-  const { ReloadTransaction } = useContext(MyContext);
+  const { ReloadTransaction, walletBalance, setWalletBalance } =
+    useContext(MyContext);
 
   // ********************** Recharge Section  **********************
   const HandleRecharge = async (amount) => {
@@ -34,6 +35,7 @@ const MyAccount = () => {
       if (data.status === "success") {
         message.success("Recharge Successfully!");
         ReloadTransaction();
+        setWalletBalance((prev) => prev + amount);
         navigate("/my-wallet/add-money/1");
       } else {
         message.error("Recharge Failed");
@@ -84,8 +86,8 @@ const MyAccount = () => {
               Add Money to Wallet
             </h1>
             <h1 className="text-center opacity-85">
-              Available Balance :{" "}
-              <span className="text-lg font-semibold"> ₹ 0</span>{" "}
+              Available Balance :
+              <span className="text-lg font-semibold"> ₹ {walletBalance}</span>
             </h1>
           </section>
 

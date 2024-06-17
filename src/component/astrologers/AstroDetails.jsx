@@ -4,29 +4,28 @@ import Layout from "../layout/Layout";
 import { FaStar } from "react-icons/fa6";
 import AstroAvailable from "./AstroAvailable";
 import { Divider, message } from "antd";
-import { HomeOutlined } from "@ant-design/icons";
+import { HomeOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
 import { useNavigate, useParams } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import image from "../../assets/callprofile.png";
-import { LoadingOutlined } from "@ant-design/icons";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const AstroDetails = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const [astro, setAstro] = useState([]);
+  const [astro, setAstro] = useState({});
   const [specialization, setSpecialization] = useState([]);
   const [isOnline, setIsOnline] = useState("");
 
   const { id } = useParams();
 
   // ********************** Fetch Status Section  **********************
-  const fetchStatus = async () => {
+  const fetchStatus = useCallback(async () => {
     try {
       const response = await fetch(
-        import.meta.env.VITE_SERVER_URL + `api/users/checkAstroOnline`,
+        `${import.meta.env.VITE_SERVER_URL}api/users/checkAstroOnline`,
         {
           method: "POST",
           headers: {
@@ -38,34 +37,39 @@ const AstroDetails = () => {
       );
 
       const data = await response.json();
-
       setIsOnline(data.data);
     } catch (error) {
       console.error(error.message);
     }
-  };
+  }, [id]);
+
   // ********************** Astro Details Section  **********************
-  const fetchAstroDetails = async () => {
+  const fetchAstroDetails = useCallback(async () => {
     try {
       const response = await fetch(
-        import.meta.env.VITE_SERVER_URL + `api/users/searchAstro/${id}`
+        `${import.meta.env.VITE_SERVER_URL}api/users/searchAstro/${id}`
       );
-
       const data = await response.json();
 
       setAstro(data.data[0]);
       const specializationString = data.data[0]?.specialization;
-      const words =
+      setSpecialization(
         typeof specializationString === "string"
           ? specializationString.split(",")
-          : [];
-      setSpecialization(words);
+          : []
+      );
     } catch (error) {
       console.error(error.message);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchAstroDetails();
+    fetchStatus();
+  }, []);
+
   // ********************** Handle Call Section  **********************
-  const HandleCall = async (id) => {
+  const handleCall = async (id) => {
     if (user) {
       try {
         setLoading(true);
@@ -101,11 +105,6 @@ const AstroDetails = () => {
       navigate("/login");
     }
   };
-
-  useEffect(() => {
-    fetchAstroDetails();
-    fetchStatus();
-  }, []);
 
   return (
     <Layout>
@@ -182,7 +181,7 @@ const AstroDetails = () => {
                       <div className="hover:cursor-pointer hover:bg-green-400 hover:text-white flex border-2 border-green-400 my-auto w-64 h-12 items-center justify-center rounded-full">
                         <div>
                           <span
-                            onClick={() => HandleCall(astro.id)}
+                            onClick={() => handleCall(astro.id)}
                             className="font-bold text-sm opacity-80"
                           >
                             {loading ? <LoadingOutlined /> : "Call"}

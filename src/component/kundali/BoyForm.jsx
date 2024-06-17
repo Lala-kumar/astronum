@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+ 
 
 const BoyForm = ({ formData, setFormData }) => {
   // Generate options for date (1-31)

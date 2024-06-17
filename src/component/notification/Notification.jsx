@@ -9,8 +9,6 @@ const Notification = () => {
   const navigate = useNavigate();
   const { notification } = useContext(MyContext);
 
- 
-
   return (
     <Layout>
       <h1 className="font-bold px-4 sm:px-6 md:px-12 lg:px-20  text-center p-2 text-white bg-[#fbb62e]">
@@ -35,7 +33,7 @@ const Notification = () => {
       </h1>
 
       <div className="min-h-screen">
-        <h1 className="font-bold my-6 text-center p-2 mx-auto w-72 rounded-md bg-pink-100">
+        <h1 className="font-bold my-6 text-center p-2 mx-auto w-72 rounded-md bg-[#fbb62e]">
           Notifications
         </h1>
 

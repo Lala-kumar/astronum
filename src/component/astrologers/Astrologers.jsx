@@ -12,6 +12,7 @@ const Astrologers = () => {
   const [loading, setLoading] = useState({});
 
   const { astrologer, availabilityStatus } = useContext(MyContext);
+ 
 
   const HandleCall = async (id) => {
     if (user) {

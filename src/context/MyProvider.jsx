@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import MyContext from "./MyContext";
 
 const MyProvider = ({ children }) => {
+  const [astroData, setAstroData] = useState();
   const [userData, setUserData] = useState();
   const [astrologer, setAstrologer] = useState([]);
   const [allSpecialization, setAllSpecialization] = useState([]);
@@ -12,6 +13,7 @@ const MyProvider = ({ children }) => {
   const [availabilityStatus, setAvailabilityStatus] = useState([]);
   const [transaction, setTransaction] = useState([]);
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
+  const [walletBalance, setWalletBalance] = useState("");
 
   const user = JSON.parse(localStorage.getItem("user"));
   const astro = JSON.parse(localStorage.getItem("astro"));
@@ -20,13 +22,70 @@ const MyProvider = ({ children }) => {
     setUserData(userData);
   };
 
-  const logout = () => {
-    setUserData(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("astro");
-    fetchNotification();
+  const astroLogin = (astroData) => {
+    setAstroData(astroData);
   };
 
+  const logout = () => {
+    setUserData(null);
+    setAstroData(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("astro");
+  };
+
+  // ********************** Send Active Status **********************
+  const sendActiveStatus = async () => {
+    if (!astro) return;
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + "api/astro/astrLoginInsert",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${astro?.access_token}`,
+          },
+          body: JSON.stringify({ astroId: astro?.userID }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error Sending Status!!");
+      }
+
+      // const data = await response.json();
+      // console.log(data, "Astro Status send to the server");
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  // ********************** Wallet Balance Section  **********************
+  const fetchWalletBalce = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + "api/users/walletAmount",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.access_token}`,
+          },
+          body: JSON.stringify({ userId: user?.userID }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error Fetching Balance!");
+      }
+
+      const data = await response.json();
+
+      setWalletBalance(data.walletCurrBalnce);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   // ********************** All Notification Section  **********************
   const fetchNotification = async () => {
     try {
@@ -47,7 +106,6 @@ const MyProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      console.log(data.status,"Notification Called");
 
       if (data?.status === "success") {
         setNotification(data.data);
@@ -141,6 +199,7 @@ const MyProvider = ({ children }) => {
       }
 
       const data = await response.json();
+
       setAvailabilityStatus(data.data);
     } catch (error) {
       console.error(error.message);
@@ -167,7 +226,6 @@ const MyProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      console.log(data.status,"Transaction Called");
 
       if (data.status === "success") {
         setTransaction(data.data);
@@ -203,8 +261,7 @@ const MyProvider = ({ children }) => {
   useEffect(() => {
     fetchNotification();
     fetchTransaction();
-    console.log(user);
-    console.log("Effect Run");
+    fetchWalletBalce();
   }, [user?.status === "success"]);
 
   useEffect(() => {
@@ -215,11 +272,25 @@ const MyProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (astro) {
+      sendActiveStatus();
+      const intervalId = setInterval(() => {
+        sendActiveStatus();
+      }, 3 * 60 * 1000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [astro]);
+
   return (
     <MyContext.Provider
       value={{
         userData,
         setUserData,
+        astroData,
+        setAstroData,
+        astroLogin,
         astrologer,
         setAstrologer,
         allSpecialization,
@@ -241,6 +312,8 @@ const MyProvider = ({ children }) => {
         astro,
         user,
         ReloadCheckStatus,
+        walletBalance,
+        setWalletBalance,
       }}
     >
       {children}

@@ -75,7 +75,7 @@ const MatchKundali = () => {
             </section>
 
             <section className="mb-6">
-              <p className="text-lg font-bold opacity-80 leading-6 mb-2">
+              <p className="text-lg font-bold opacity-80 leading-6 mb-2 text-justify">
                 Free Match Making - Kundli Milan & Gun Milan to Check
                 Possibilities of Marriage
               </p>
