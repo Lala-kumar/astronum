@@ -1,4 +1,9 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import {
+  RouterProvider,
+  createBrowserRouter,
+  Navigate,
+} from "react-router-dom";
 import Home from "./component/home/Home";
 import MyAccount from "./component/account/MyAccount";
 import Notification from "./component/notification/Notification";
@@ -20,27 +25,96 @@ import UserCallHistory from "./component/calling/UserCallHistory";
 import ConsultationRequest from "./component/calling/ConsultationRequest";
 import RechargeSuccess from "./component/recharge result/RechargeSuccess";
 
+// user protected route
+export const ProtectedRouteForUser = ({ children }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user?.status === "success") {
+    return children;
+  } else {
+    return <Navigate to={"/"} />;
+  }
+};
+
+// astro protected route
+export const ProtectedRouteForAstro = ({ children }) => {
+  const astro = JSON.parse(localStorage.getItem("astro"));
+  if (astro?.status === "success") {
+    return children;
+  } else {
+    return <Navigate to={"/"} />;
+  }
+};
+
 const App = () => {
   const router = createBrowserRouter([
     { path: "/", element: <Home /> },
     { path: "/*", element: <NoPage /> },
-    { path: "/account", element: <MyAccount /> },
+    {
+      path: "/account",
+      element: (
+        <ProtectedRouteForUser>
+          <MyAccount />
+        </ProtectedRouteForUser>
+      ),
+    },
     { path: "/astro-account", element: <AstroAccount /> },
-    { path: "/notification", element: <Notification /> },
+    {
+      path: "/notification",
+      element: (
+        <ProtectedRouteForUser>
+          <Notification />
+        </ProtectedRouteForUser>
+      ),
+    },
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <SignUp /> },
     { path: "/astrologer-login", element: <AstroLogin /> },
     { path: "/astrologer-register", element: <AstroRegister /> },
     { path: "/astrologer/:id", element: <AstroDetails /> },
     { path: "/pooja", element: <Pooja /> },
-    { path: "/my-wallet", element: <MyWallet /> },
-    { path: "/my-wallet/add-money", element: <AddMoney /> },
-    { path: "/my-wallet/add-money/:id", element: <RechargeSuccess /> },
+    {
+      path: "/my-wallet",
+      element: (
+        <ProtectedRouteForUser>
+          <MyWallet />
+        </ProtectedRouteForUser>
+      ),
+    },
+    {
+      path: "/my-wallet/add-money",
+      element: (
+        <ProtectedRouteForUser>
+          <AddMoney />
+        </ProtectedRouteForUser>
+      ),
+    },
+    {
+      path: "/my-wallet/add-money/:id",
+      element: (
+        <ProtectedRouteForUser>
+          <RechargeSuccess />
+        </ProtectedRouteForUser>
+      ),
+    },
     { path: "/order", element: <Order /> },
     { path: "/kundali", element: <Kundali /> },
     { path: "/match-kundali", element: <MatchKundali /> },
-    { path: "/call-history", element: <UserCallHistory /> },
-    { path: "/consultation-request", element: <ConsultationRequest /> },
+    {
+      path: "/call-history",
+      element: (
+        <ProtectedRouteForUser>
+          <UserCallHistory />
+        </ProtectedRouteForUser>
+      ),
+    },
+    {
+      path: "/consultation-request",
+      element: (
+        <ProtectedRouteForAstro>
+          <ConsultationRequest />
+        </ProtectedRouteForAstro>
+      ),
+    },
   ]);
 
   return (

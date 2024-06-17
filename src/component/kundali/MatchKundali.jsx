@@ -33,12 +33,12 @@ const MatchKundali = () => {
   });
 
   const handleGenerateKundli = async () => {
-    const combinedData = {
-      ...girlFormData,
-      ...boyFormData,
-    };
+    // const combinedData = {
+    //   ...girlFormData,
+    //   ...boyFormData,
+    // };
 
-    console.log(combinedData);
+    // console.log(combinedData);
   };
 
   return (

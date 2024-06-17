@@ -1,10 +1,9 @@
-import React from "react";
-import { Divider, Steps } from "antd";
+import { Steps } from "antd";
 import { useState, useEffect } from "react";
 
 const App = () => {
   // Function to get the date for the next 6 days
-  const getNextDays = () => {
+  const GetNextDays = () => {
     const today = new Date();
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const months = [
@@ -50,7 +49,7 @@ const App = () => {
     return nextDays;
   };
 
-  const nextDays = getNextDays();
+  const nextDays = GetNextDays();
   const isHorizontal = window.innerWidth >= 1024;
 
   return (

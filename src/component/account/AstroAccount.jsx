@@ -174,21 +174,21 @@ const AstroAccount = () => {
       }
 
       const data = await response.json();
-   
+
       if (data.status === "success") {
         const profileData = data.data;
         setFormData({
-          astroname: profileData.name || "",
+          astroname: profileData.name ?? "",
           specialization: profileData.specialization.split(","),
           languages: profileData.languages_get.split(","),
-          experience: profileData.experience || "",
-          expectedcallprice: profileData.call_price || "",
-          // profile_pic: profileData.image || "",
-          accountno: profileData.accountno || "",
-          ifsccode: profileData.ifsccode || "",
-          bankname: profileData.bankname || "",
+          experience: profileData.experience ?? "",
+          expectedcallprice: profileData.call_price ?? "",
+          // profile_pic: profileData.image ?? "",
+          accountno: profileData.accountno ?? "",
+          ifsccode: profileData.ifsccode ?? "",
+          bankname: profileData.bankname ?? "",
         });
-        setImageUrl(profileData.image || "");
+        setImageUrl(profileData.image ?? "");
       }
     } catch (error) {
       console.error(error.message);

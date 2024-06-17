@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 const SendStatus = () => {
   const astro = JSON.parse(localStorage.getItem("astro"));
-  console.log(astro, "Send astro online");
+ 
 
   useEffect(() => {
     const sendActiveStatus = async () => {

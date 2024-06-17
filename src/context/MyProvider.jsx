@@ -86,6 +86,7 @@ const MyProvider = ({ children }) => {
       console.error(error.message);
     }
   };
+
   // ********************** All Notification Section  **********************
   const fetchNotification = async () => {
     try {
@@ -259,10 +260,12 @@ const MyProvider = ({ children }) => {
   }, [selectedSpecialization]);
 
   useEffect(() => {
-    fetchNotification();
-    fetchTransaction();
-    fetchWalletBalce();
-  }, [user?.status === "success"]);
+    if (user?.status === "success") {
+      fetchNotification();
+      fetchTransaction();
+      fetchWalletBalce();
+    }
+  }, [user?.status]);
 
   useEffect(() => {
     const interval = setInterval(() => {

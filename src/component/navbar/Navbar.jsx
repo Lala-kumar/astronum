@@ -34,15 +34,15 @@ const Navbar = () => {
                 user?.access_token ? user?.access_token : astro?.access_token
               }`,
             },
+            body: JSON.stringify({
+              id: user?.userID ? user?.userID : astro?.userID,
+            }),
           }
         );
 
         if (!response.ok) {
           throw new Error("Error Logout!");
         }
-
-        const data = await response.json();
-        console.log(data);
       } catch (error) {
         console.error(error.message);
       }

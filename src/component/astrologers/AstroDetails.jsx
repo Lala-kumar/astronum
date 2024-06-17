@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
 import Layout from "../layout/Layout";
-import { FaStar } from "react-icons/fa6";
+// import { FaStar } from "react-icons/fa6";
 import AstroAvailable from "./AstroAvailable";
 import { Divider, message } from "antd";
 import { HomeOutlined, LoadingOutlined } from "@ant-design/icons";
@@ -9,6 +9,7 @@ import { Breadcrumb } from "antd";
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useState, useCallback } from "react";
 import image from "../../assets/callprofile.png";
+import { MdCall } from "react-icons/md";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const AstroDetails = () => {
@@ -37,7 +38,8 @@ const AstroDetails = () => {
       );
 
       const data = await response.json();
-      setIsOnline(data.data);
+
+      setIsOnline(data.data[id]);
     } catch (error) {
       console.error(error.message);
     }
@@ -154,15 +156,10 @@ const AstroDetails = () => {
                 <p className="text-gray-600 mb-2">
                   Exp: {astro.experience ? astro.experience : "0"} Year
                 </p>
+                <p className="text-gray-600 mb-2">
+                  Call: {astro.callpermin ? astro.callpermin : "0"}/min
+                </p>
 
-                <div className="flex mb-2 text-gray-700">
-                  <span className="mr-2 text-center">Rating :</span>
-                  {[...Array(5)].map((_, index) => (
-                    <FaStar key={index} className="mt-1 text-yellow-500" />
-                  ))}
-                  <span className="mx-4">|</span>
-                  <span>Reviews : 275</span>
-                </div>
                 <Divider />
               </div>
 
@@ -177,23 +174,28 @@ const AstroDetails = () => {
                       </div>
                     </section>
 
-                    <section className="m-auto mb-8">
-                      <div className="hover:cursor-pointer hover:bg-green-400 hover:text-white flex border-2 border-green-400 my-auto w-64 h-12 items-center justify-center rounded-full">
-                        <div>
-                          <span
-                            onClick={() => handleCall(astro.id)}
-                            className="font-bold text-sm opacity-80"
-                          >
-                            {loading ? <LoadingOutlined /> : "Call"}
-                          </span>
-                        </div>
-                        <div className="mx-4 opacity-90">|</div>
-                        <div>
-                          <span className="text-xs line-through">10/min</span>
-                          <span className="font-bold text-md opacity-80 text-rose-600">
-                            Free
-                          </span>
-                        </div>
+                    <section
+                      className="m-auto mb-8"
+                      onClick={() => handleCall(astro.id)}
+                    >
+                      <div className="hover:cursor-pointer hover:border-green-600 hover:shadow-md  hover:text-white flex border-2 border-green-400 my-auto w-64 h-12 items-center justify-evenly rounded-full">
+                        {loading ? (
+                          <LoadingOutlined className="text-green-600" />
+                        ) : (
+                          <>
+                            <div>
+                              <div className="">
+                                <MdCall className="text-3xl text-green-700" />
+                              </div>
+                            </div>
+
+                            <div>
+                              <span className="text-md opacity-80 text-green-600">
+                                Start Call
+                              </span>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </section>
                   </>
@@ -207,18 +209,20 @@ const AstroDetails = () => {
                       </div>
                     </section>
 
-                    <section className="m-auto mb-8">
-                      <div className="hover:cursor-pointer hover:bg-green-400 hover:text-white flex border-2 border-green-400 my-auto w-64 h-12 items-center justify-center rounded-full">
+                    <section
+                      className="m-auto mb-8"
+                      onClick={() => handleCall(astro.id)}
+                    >
+                      <div className="hover:cursor-pointer hover:border-rose-600 hover:shadow-md  hover:text-white flex border-2 border-rose-400 my-auto w-64 h-12 items-center justify-evenly rounded-full">
                         <div>
-                          <span className="font-bold text-sm opacity-80">
-                            Busy
-                          </span>
+                          <div className="">
+                            <MdCall className="text-3xl text-rose-700" />
+                          </div>
                         </div>
-                        <div className="mx-4 opacity-90">|</div>
+
                         <div>
-                          <span className="text-xs line-through">10/min</span>
-                          <span className="font-bold text-md opacity-80 text-rose-600">
-                            Free
+                          <span className="text-md opacity-80 text-rose-600">
+                            Start Call
                           </span>
                         </div>
                       </div>

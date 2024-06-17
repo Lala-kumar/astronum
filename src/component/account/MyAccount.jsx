@@ -76,12 +76,12 @@ const MyAccount = () => {
       const data = await response.json();
 
       setFormData({
-        name: data.data.first_name,
-        gender: data.data.gender,
-        dob: data.data.dob,
-        time_of_birth: data.data.time_of_birth,
-        place_of_birth: data.data.place_of_birth,
-        address: data.data.address,
+        name: data.data.first_name ?? "",
+        gender: data.data.gender ?? "",
+        dob: data.data.dob ?? "",
+        time_of_birth: data.data.time_of_birth ?? "",
+        place_of_birth: data.data.place_of_birth ?? "",
+        address: data.data.address ?? "",
       });
     } catch (error) {
       console.error(error.message);

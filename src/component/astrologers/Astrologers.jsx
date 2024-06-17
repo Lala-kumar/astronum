@@ -5,46 +5,53 @@ import { message } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import pic from "../../assets/callprofile.png";
 import { Tag } from "antd";
+import RechargeModal from "../calling/RechargeModal";
 
 const Astrologers = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const [loading, setLoading] = useState({});
 
-  const { astrologer, availabilityStatus } = useContext(MyContext);
- 
+  const { astrologer, availabilityStatus, walletBalance } =
+    useContext(MyContext);
 
   const HandleCall = async (id) => {
     if (user) {
-      try {
-        setLoading((prevState) => ({ ...prevState, [id]: true }));
-        const response = await fetch(
-          import.meta.env.VITE_SERVER_URL + `api/users/sendRequest`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${user.access_token}`,
-            },
-            body: JSON.stringify({ astroid: id, id: user.userId }),
+      // Check if the wallet balance is sufficient
+      const selectedAstrologer = astrologer.find((astro) => astro.id === id);
+      if (walletBalance * 5 >= selectedAstrologer.callpermin * 5) {
+        try {
+          setLoading((prevState) => ({ ...prevState, [id]: true }));
+          const response = await fetch(
+            import.meta.env.VITE_SERVER_URL + `api/users/sendRequest`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user.access_token}`,
+              },
+              body: JSON.stringify({ astroid: id, id: user.userId }),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error Calling!");
           }
-        );
 
-        if (!response.ok) {
-          throw new Error("Error Calling!");
+          const data = await response.json();
+
+          if (data.status === "success") {
+            message.success("Request sent!");
+          } else {
+            message.error("Something went wrong");
+          }
+          setLoading((prevState) => ({ ...prevState, [id]: false }));
+        } catch (error) {
+          console.error(error.message);
+          setLoading((prevState) => ({ ...prevState, [id]: false }));
         }
-
-        const data = await response.json();
-
-        if (data.status === "success") {
-          message.success("Request sent!");
-        } else {
-          message.error("Something went wrong");
-        }
-        setLoading((prevState) => ({ ...prevState, [id]: false }));
-      } catch (error) {
-        console.error(error.message);
-        setLoading((prevState) => ({ ...prevState, [id]: false }));
+      } else {
+        message.error("Insufficient balance. Please recharge.");
       }
     } else {
       navigate("/login");
@@ -98,7 +105,7 @@ const Astrologers = () => {
                 >
                   {astro.name}
                 </p>
-                <p className="mb-1 text-xs text-gray-500">Vedic</p>
+
                 <p className="text-sm mb-1 text-gray-600 text-ellipsis overflow-hidden">
                   {astro.languages_get ? astro.languages_get : "Hindi"}
                 </p>
@@ -106,8 +113,18 @@ const Astrologers = () => {
                   Exp: {astro.experience ? astro.experience : "0"} Year
                 </p>
                 <p className="text-sm">
-                  <span className="text-rose-600 font-bold">FREE</span>
-                  <span className="line-through text-xs">10/min</span>
+                  <span className="text-xs">
+                    {astro.callpermin ? (
+                      astro.callpermin + "/min"
+                    ) : (
+                      <span className="text-rose-600 font-bold">
+                        <span className="line-through text-black opacity-100 font-normal text-xs">
+                          0/min
+                        </span>{" "}
+                        FREE
+                      </span>
+                    )}
+                  </span>
                 </p>
               </div>
 
@@ -119,7 +136,7 @@ const Astrologers = () => {
                   >
                     <LoadingOutlined />
                   </button>
-                ) : (
+                ) : walletBalance * 5 >= astro.callpermin * 5 ? (
                   <button
                     type="button"
                     disabled={!isOnline}
@@ -128,6 +145,8 @@ const Astrologers = () => {
                   >
                     Call
                   </button>
+                ) : (
+                  <RechargeModal astro={astro} />
                 )}
               </div>
             </section>
