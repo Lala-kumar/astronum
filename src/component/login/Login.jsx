@@ -17,7 +17,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const { login } = useContext(MyContext);
- 
 
   const HandleChange = (e) => {
     const { name, value } = e.target;
@@ -71,7 +70,9 @@ const Login = () => {
           </div>
 
           <div className="w-full sm:max-w-sm mx-5">
-            <h1 className="text-center font-bold pb-2 text-slate-600">Login to Your Account</h1>
+            <h1 className="text-center font-bold pb-2 text-slate-600">
+              Login to Your Account
+            </h1>
             <form className="max-w-md mx-auto" onSubmit={HandleSubmit}>
               <label htmlFor="email" className="block mb-4">
                 <input
@@ -102,7 +103,7 @@ const Login = () => {
 
               <a
                 href="#"
-                className="block text-sm text-neutral-600 hover:text-amber-400 mb-6 "
+                className="block text-sm text-neutral-600 hover:text-blue-600 mb-6 "
               >
                 Forgot password?
               </a>

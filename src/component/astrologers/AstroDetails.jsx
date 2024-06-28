@@ -188,7 +188,7 @@ const AstroDetails = () => {
                                 <MdCall className="text-3xl text-green-700" />
                               </div>
                             </div>
-
+  
                             <div>
                               <span className="text-md opacity-80 text-green-600">
                                 Start Call

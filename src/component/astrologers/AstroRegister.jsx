@@ -67,12 +67,12 @@ const AstroRegister = () => {
         setErrors(data.data);
       }
 
-      localStorage.setItem("token", JSON.stringify(data));
       setFormData(initialData);
       setLoading(false);
     } catch (error) {
-      console.error(error, "flag");
+      console.error(error.message);
       setLoading(false);
+      message.error("Something went wrong! Please try again.");
     }
   };
 

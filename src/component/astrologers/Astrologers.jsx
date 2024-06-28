@@ -5,7 +5,7 @@ import { message } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import pic from "../../assets/callprofile.png";
 import { Tag } from "antd";
-import RechargeModal from "../calling/RechargeModal";
+// import RechargeModal from "../calling/RechargeModal";
 
 const Astrologers = () => {
   const navigate = useNavigate();
@@ -136,7 +136,8 @@ const Astrologers = () => {
                   >
                     <LoadingOutlined />
                   </button>
-                ) : walletBalance * 5 >= astro.callpermin * 5 ? (
+                ) : (
+                  //  walletBalance * 5 >= astro.callpermin * 5 ? (
                   <button
                     type="button"
                     disabled={!isOnline}
@@ -145,8 +146,8 @@ const Astrologers = () => {
                   >
                     Call
                   </button>
-                ) : (
-                  <RechargeModal astro={astro} />
+                  // ) : (
+                  //   <RechargeModal astro={astro} />
                 )}
               </div>
             </section>

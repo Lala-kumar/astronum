@@ -15,11 +15,11 @@ const AstroAccount = () => {
 
   const [imageUrl, setImageUrl] = useState("");
 
-  const { allSpecialization, allLanguage, ReloadAllAstro } =
+  const { allSpecialization, allLanguage, ReloadAllAstro, allSkills } =
     useContext(MyContext);
 
   const [formData, setFormData] = useState({
-    astroname: "",
+    name: "",
     specialization: [],
     languages: [],
     experience: "",
@@ -28,6 +28,7 @@ const AstroAccount = () => {
     accountno: "",
     ifsccode: "",
     bankname: "",
+    skill: [],
     id: astro.userID,
   });
 
@@ -36,6 +37,26 @@ const AstroAccount = () => {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  // skills onchange
+  const handleCheckedSkill = (e) => {
+    const { value, checked } = e.target;
+
+    setFormData((prevState) => {
+      let updatedSkill;
+      if (checked) {
+        updatedSkill = [...prevState.skill, value];
+      } else {
+        updatedSkill = prevState.skill.filter((item) => item !== value);
+      }
+
+      return {
+        ...prevState,
+        skill: updatedSkill,
+      };
+    });
+  };
+
+  // specialization onchange
   const handleChecked = (e) => {
     const { value, checked } = e.target;
 
@@ -56,6 +77,7 @@ const AstroAccount = () => {
     });
   };
 
+  // language onchange
   const handleCheckedlanguage = (e) => {
     const { value, checked } = e.target;
 
@@ -116,7 +138,7 @@ const AstroAccount = () => {
     }
   };
 
-  // ********************** Fetch Astro Profile Section  **********************
+  // ********************** Update Astro Profile Section  **********************
   const handleUpdate = async (e) => {
     e.preventDefault();
 
@@ -176,19 +198,18 @@ const AstroAccount = () => {
       const data = await response.json();
 
       if (data.status === "success") {
-        const profileData = data.data;
         setFormData({
-          astroname: profileData.name ?? "",
-          specialization: profileData.specialization.split(","),
-          languages: profileData.languages_get.split(","),
-          experience: profileData.experience ?? "",
-          expectedcallprice: profileData.call_price ?? "",
-          // profile_pic: profileData.image ?? "",
-          accountno: profileData.accountno ?? "",
-          ifsccode: profileData.ifsccode ?? "",
-          bankname: profileData.bankname ?? "",
+          name: data.data.name,
+          specialization: data.data.specialization.split(","),
+          skill: data.data.skills.split(","),
+          languages: data.data.languages_get.split(","),
+          experience: data.data.experience ?? "",
+          expectedcallprice: data.data.call_price,
+          accountno: data.data.accountno ?? "",
+          ifsccode: data.data.ifsccode ?? "",
+          bankname: data.data.bankname ?? "",
         });
-        setImageUrl(profileData.image ?? "");
+        setImageUrl(data.data.image ?? "");
       }
     } catch (error) {
       console.error(error.message);
@@ -262,10 +283,10 @@ const AstroAccount = () => {
                     <input
                       type="text"
                       placeholder="e.g 2"
-                      name="astroname"
-                      id="astroname"
+                      name="name"
+                      id="name"
                       onChange={handleChange}
-                      value={formData.astroname}
+                      value={formData.name}
                       className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     />
                   </div>
@@ -341,14 +362,43 @@ const AstroAccount = () => {
                         <input
                           value={speresult.id}
                           id={checkboxId}
-                          name="specialization[]"
+                          name="specialization"
                           onChange={handleChecked}
                           type="checkbox"
                           checked={isChecked}
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-4 h-4 text-blue-600 rounded"
+                          style={{ color: "blue", backgroundColor: "blue" }}
                         />
                         <label className="ms-2 text-sm font-medium text-gray-700">
                           {speresult.name}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="flex flex-row">Skill</div>
+                <div className="grid grid-cols-2 border rounded-md px-4 py-2">
+                  {allSkills.map((skresult) => {
+                    let ids = skresult.id;
+
+                    const isChecked = formData.skill.includes(`${ids}`);
+                    const checkboxId = `sk${skresult.id}`;
+
+                    return (
+                      <div className="flex items-center mb-4" key={skresult.id}>
+                        <input
+                          value={skresult.id}
+                          id={checkboxId}
+                          name="skill"
+                          onChange={handleCheckedSkill}
+                          type="checkbox"
+                          checked={isChecked}
+                          className="w-4 h-4 text-blue-600 rounded"
+                          style={{ color: "blue", backgroundColor: "blue" }}
+                        />
+                        <label className="ms-2 text-sm font-medium text-gray-700">
+                          {skresult.skillname}
                         </label>
                       </div>
                     );
@@ -370,7 +420,7 @@ const AstroAccount = () => {
                       >
                         <input
                           value={laneresult.id}
-                          name="languages[]"
+                          name="languages"
                           id={checkboxlId}
                           onChange={handleCheckedlanguage}
                           type="checkbox"

@@ -8,6 +8,7 @@ const MyProvider = ({ children }) => {
   const [userData, setUserData] = useState();
   const [astrologer, setAstrologer] = useState([]);
   const [allSpecialization, setAllSpecialization] = useState([]);
+  const [allSkills, setAllSkills] = useState([]);
   const [allLanguage, setAllLanguage] = useState([]);
   const [notification, setNotification] = useState([]);
   const [availabilityStatus, setAvailabilityStatus] = useState([]);
@@ -167,6 +168,28 @@ const MyProvider = ({ children }) => {
     }
   };
 
+  // ********************** All Specialization Section  **********************
+  const fetchSkills = async () => {
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_SERVER_URL + "api/users/allSkills"
+      );
+
+      if (!response.ok) {
+        throw new Error("Error Fetching All skills!");
+      }
+
+      const data = await response.json();
+ 
+
+      if (data.status === "success") {
+        setAllSkills(data.data);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   // ********************** All Language Section  **********************
   const fetchAllLanguage = async () => {
     try {
@@ -249,6 +272,7 @@ const MyProvider = ({ children }) => {
     fetchAllSpecialization();
     fetchAllLanguage();
     checkStatus();
+    fetchSkills();
   }, []);
 
   const ReloadCheckStatus = () => {
@@ -317,6 +341,8 @@ const MyProvider = ({ children }) => {
         ReloadCheckStatus,
         walletBalance,
         setWalletBalance,
+        allSkills,
+        setAllSkills,
       }}
     >
       {children}
