@@ -15,6 +15,8 @@ const Astrologers = () => {
   const { astrologer, availabilityStatus, walletBalance } =
     useContext(MyContext);
 
+  console.log(astrologer);
+
   const HandleCall = async (id) => {
     if (user) {
       // Check if the wallet balance is sufficient
@@ -93,7 +95,13 @@ const Astrologers = () => {
                       <Tag color="green">Online</Tag>
                     </>
                   ) : (
+                    <>
+                    <span className="absolute bottom-6 left-16 flex h-3 w-3">
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-red-400"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-400 border-5"></span>
+                    </span>
                     <Tag color="red">Offline</Tag>
+                  </>
                   )}
                 </div>
               </div>
@@ -105,10 +113,13 @@ const Astrologers = () => {
                 >
                   {astro.name}
                 </p>
-
+                <p className="text-sm mb-1 text-gray-600 text-ellipsis overflow-hidden">
+                  {astro.skilldata ? astro.skilldata : "Vedic"}
+                </p>
                 <p className="text-sm mb-1 text-gray-600 text-ellipsis overflow-hidden">
                   {astro.languages_get ? astro.languages_get : "Hindi"}
                 </p>
+
                 <p className="text-gray-600 mb-1 text-sm">
                   Exp: {astro.experience ? astro.experience : "0"} Year
                 </p>

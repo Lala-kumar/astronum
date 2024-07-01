@@ -150,7 +150,7 @@ const AstroDetails = () => {
               <div className="m-4 mx-auto">
                 <p className="mb-2 text-2xl font-bold">{astro.name}</p>
                 <p className="mb-2 text-md text-gray-500">
-                  Vedic, Numerology, Vastu, Prashana
+                {astro.skilldata ? astro.skilldata : "Vedic"}
                 </p>
                 <p className="mb-2 text-gray-600">Hindi, English</p>
                 <p className="text-gray-600 mb-2">

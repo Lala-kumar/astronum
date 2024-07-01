@@ -19,7 +19,7 @@ const AstroAccount = () => {
     useContext(MyContext);
 
   const [formData, setFormData] = useState({
-    name: "",
+    astroname: "",
     specialization: [],
     languages: [],
     experience: "",
@@ -157,11 +157,12 @@ const AstroAccount = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Error Updating Astro Profile!");
-      }
+      // if (!response.ok) {
+      //   throw new Error("Error Updating Astro Profile!");
+      // }
 
       const data = await response.json();
+      console.log(data);
 
       if (data.status === "success") {
         message.success("ProfileUpdated Successfully!");
@@ -196,10 +197,11 @@ const AstroAccount = () => {
       }
 
       const data = await response.json();
+      console.log(data);
 
       if (data.status === "success") {
         setFormData({
-          name: data.data.name,
+          astroname: data.data.name,
           specialization: data.data.specialization.split(","),
           skill: data.data.skills.split(","),
           languages: data.data.languages_get.split(","),
@@ -286,7 +288,7 @@ const AstroAccount = () => {
                       name="name"
                       id="name"
                       onChange={handleChange}
-                      value={formData.name}
+                      value={formData.astroname}
                       className="w-full px-4 py-2 border mb-4 border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                     />
                   </div>
